@@ -7,18 +7,15 @@
 
 using UnityEngine;
 
-namespace RoboRyanTron.Unite2017.Variables
+[CreateAssetMenu]
+public class StringVariable : ScriptableObject
 {
-    [CreateAssetMenu]
-    public class StringVariable : ScriptableObject
-    {
-        [SerializeField]
-        private string value = "";
+    [SerializeField]
+    private string value = "";
 
-        public string Value
-        {
-            get { return value; }
-            set { this.value = value; }
-        }
+    public string Value
+    {
+        get { return value; }
+        set { this.value = value; }
     }
 }

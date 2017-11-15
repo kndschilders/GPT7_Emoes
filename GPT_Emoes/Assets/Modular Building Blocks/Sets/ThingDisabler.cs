@@ -7,8 +7,6 @@
 
 using UnityEngine;
 
-namespace RoboRyanTron.Unite2017.Sets
-{
     public class ThingDisabler : MonoBehaviour
     {
         public ThingRuntimeSet Set;
@@ -28,4 +26,3 @@ namespace RoboRyanTron.Unite2017.Sets
             Set.Items[index].gameObject.SetActive(false);
         }
     }
-}

@@ -8,27 +8,24 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace RoboRyanTron.Unite2017.Variables
+public class TextReplacer : MonoBehaviour
 {
-    public class TextReplacer : MonoBehaviour
+    public Text Text;
+
+    public StringVariable Variable;
+
+    public bool AlwaysUpdate;
+
+    private void OnEnable()
     {
-        public Text Text;
+        Text.text = Variable.Value;
+    }
 
-        public StringVariable Variable;
-
-        public bool AlwaysUpdate;
-        
-        private void OnEnable()
+    private void Update()
+    {
+        if (AlwaysUpdate)
         {
             Text.text = Variable.Value;
-        }
-
-        private void Update()
-        {
-            if (AlwaysUpdate)
-            {
-                Text.text = Variable.Value;
-            }
         }
     }
 }

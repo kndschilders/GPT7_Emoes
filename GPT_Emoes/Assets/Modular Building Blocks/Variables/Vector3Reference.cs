@@ -8,32 +8,29 @@
 using System;
 using UnityEngine;
 
-namespace RoboRyanTron.Unite2017.Variables
+[Serializable]
+public class Vector3Reference
 {
-    [Serializable]
-    public class Vector3Reference
+    public bool UseConstant = true;
+    public Vector3 ConstantValue;
+    public Vector3Variable Variable;
+
+    public Vector3Reference()
+    { }
+
+    public Vector3Reference(Vector3 value)
     {
-        public bool UseConstant = true;
-        public Vector3 ConstantValue;
-        public Vector3Variable Variable;
+        UseConstant = true;
+        ConstantValue = value;
+    }
 
-        public Vector3Reference()
-        { }
+    public Vector3 Value
+    {
+        get { return UseConstant ? ConstantValue : Variable.Value; }
+    }
 
-        public Vector3Reference(Vector3 value)
-        {
-            UseConstant = true;
-            ConstantValue = value;
-        }
-
-        public Vector3 Value
-        {
-            get { return UseConstant ? ConstantValue : Variable.Value; }
-        }
-
-        public static implicit operator Vector3(Vector3Reference reference)
-        {
-            return reference.Value;
-        }
+    public static implicit operator Vector3(Vector3Reference reference)
+    {
+        return reference.Value;
     }
 }

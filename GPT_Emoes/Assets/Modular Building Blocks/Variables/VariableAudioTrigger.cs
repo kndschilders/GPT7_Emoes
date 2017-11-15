@@ -7,28 +7,26 @@
 
 using UnityEngine;
 
-namespace RoboRyanTron.Unite2017.Variables
+
+public class VariableAudioTrigger : MonoBehaviour
 {
-    public class VariableAudioTrigger : MonoBehaviour
+    public AudioSource AudioSource;
+
+    public FloatVariable Variable;
+
+    public FloatReference LowThreshold;
+
+    private void Update()
     {
-        public AudioSource AudioSource;
-
-        public FloatVariable Variable;
-
-        public FloatReference LowThreshold;
-
-        private void Update()
+        if (Variable.Value < LowThreshold)
         {
-            if (Variable.Value < LowThreshold)
-            {
-                if (!AudioSource.isPlaying)
-                    AudioSource.Play();
-            }
-            else
-            {
-                if (AudioSource.isPlaying)
-                    AudioSource.Stop();
-            }
+            if (!AudioSource.isPlaying)
+                AudioSource.Play();
+        }
+        else
+        {
+            if (AudioSource.isPlaying)
+                AudioSource.Stop();
         }
     }
 }

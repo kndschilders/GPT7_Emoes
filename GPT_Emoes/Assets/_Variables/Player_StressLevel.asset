@@ -8,8 +8,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bd21f11e2a7c65498f5e0a8b8d420d2, type: 3}
-  m_Name: LastKnownPlayerPos
+  m_Script: {fileID: 11500000, guid: e7d5cc13f1f75d940a87a38a5781d179, type: 3}
+  m_Name: Player_StressLevel
   m_EditorClassIdentifier: 
   DeveloperDescription: 
-  Value: {x: 0, y: 0, z: 0}
+  Value: 0
