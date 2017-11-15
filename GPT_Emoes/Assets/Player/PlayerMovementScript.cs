@@ -11,6 +11,18 @@ public class PlayerMovementScript : MonoBehaviour {
 	public float JumpSpeed = 8.0f;
 	public float Gravity = 20.0f;
 
+	public enum FogDistance {
+		Close,
+		Normal,
+		Far
+	}
+
+	public Kino.Fog Fog;
+
+	public float FogNormalDistance = 4.0f;
+	public float FogCloseDistance = 1.0f;
+	public float FogFarDistance = 8.0f;
+
 	private Vector3 moveDirection = Vector3.forward;
 
 	private CharacterController cc;
@@ -19,6 +31,8 @@ public class PlayerMovementScript : MonoBehaviour {
 
 	private Vector3 preHidingPosition;
 	private Quaternion preHidingRotation;
+
+	private FogDistance fogDistance = FogDistance.Normal;
 
 	void Start () {
 		cc = GetComponent<CharacterController> ();
@@ -45,6 +59,19 @@ public class PlayerMovementScript : MonoBehaviour {
 		} else {
 			// Player is hiding, do nothing currently...
 		}
+
+		switch (fogDistance) {
+			case FogDistance.Close:
+				Fog.startDistance = FogCloseDistance;
+				break;
+			case FogDistance.Far:
+				Fog.startDistance = FogFarDistance;
+			break;
+			case FogDistance.Normal:
+			default:
+				Fog.startDistance = FogNormalDistance;
+				break;
+		}
 	}
 
 	private void setPlayerTransform(Vector3 newPosition, Quaternion newRotation) {
@@ -55,6 +82,8 @@ public class PlayerMovementScript : MonoBehaviour {
 	public void EnterHidingSpot(Transform playerTransform) {
 		if (isHiding) return;
 
+		fogDistance = FogDistance.Far;
+
 		preHidingPosition = transform.position;
 		preHidingRotation = transform.localRotation;
 
@@ -64,6 +93,8 @@ public class PlayerMovementScript : MonoBehaviour {
 
 	public void ExitHidingSpot() {
 		if (!isHiding) return;
+
+		fogDistance = FogDistance.Close;
 
 		isHiding = false;
 		setPlayerTransform (preHidingPosition, preHidingRotation);
