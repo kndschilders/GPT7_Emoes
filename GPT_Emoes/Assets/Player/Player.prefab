@@ -187,7 +187,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4162e093c95e51547bafcc7efca36278, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InteractText: {fileID: 0}
   InteractDistance: 3
   CameraTransform: {fileID: 4154720656916858}
 --- !u!114 &114555771505536436
@@ -206,8 +205,8 @@ MonoBehaviour:
   sensitivityY: 5
   minimumX: -360
   maximumX: 360
-  minimumY: -60
-  maximumY: 60
+  minimumY: -50
+  maximumY: 50
   frameCounter: 10
 --- !u!114 &114690956168743966
 MonoBehaviour:
@@ -223,6 +222,10 @@ MonoBehaviour:
   Speed: 6
   JumpSpeed: 8
   Gravity: 20
+  Fog: {fileID: 0}
+  FogNormalDistance: 4
+  FogCloseDistance: 1
+  FogFarDistance: 8
 --- !u!124 &124482254152010122
 Behaviour:
   m_ObjectHideFlags: 1
