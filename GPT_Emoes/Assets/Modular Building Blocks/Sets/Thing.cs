@@ -7,20 +7,17 @@
 
 using UnityEngine;
 
-namespace RoboRyanTron.Unite2017.Sets
+public class Thing : MonoBehaviour
 {
-    public class Thing : MonoBehaviour
+    public ThingRuntimeSet RuntimeSet;
+
+    private void OnEnable()
     {
-        public ThingRuntimeSet RuntimeSet;
+        RuntimeSet.Add(this);
+    }
 
-        private void OnEnable()
-        {
-            RuntimeSet.Add(this);
-        }
-
-        private void OnDisable()
-        {
-            RuntimeSet.Remove(this);
-        }
+    private void OnDisable()
+    {
+        RuntimeSet.Remove(this);
     }
 }

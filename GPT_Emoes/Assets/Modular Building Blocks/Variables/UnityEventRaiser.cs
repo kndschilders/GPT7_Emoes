@@ -8,15 +8,12 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace RoboRyanTron.Unite2017.Variables
+public class UnityEventRaiser : MonoBehaviour
 {
-    public class UnityEventRaiser : MonoBehaviour
-    {
-        public UnityEvent OnEnableEvent;
+    public UnityEvent OnEnableEvent;
 
-        public void OnEnable()
-        {
-            OnEnableEvent.Invoke();
-        }
+    public void OnEnable()
+    {
+        OnEnableEvent.Invoke();
     }
 }
