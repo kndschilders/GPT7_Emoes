@@ -1,16 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
-public class Mover : MonoBehaviour {
+[RequireComponent(typeof(NavMeshAgent))]
+public class Mover : MonoBehaviour
+{
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    private NavMeshAgent agent;
+
+    private void Awake()
+    {
+        agent = GetComponent<NavMeshAgent>();
+    }
+
+    public void MoveToLocation(Vector3 location)
+    {
+        agent.SetDestination(location);
+        Debug.Log(name + " is moving to " + location);
+    }
+
+    public void TeleportToLocation(Vector3 location)
+    {
+        transform.position = location;
+        Debug.Log(name + " teleported to " + location);
+
+    }
 }
