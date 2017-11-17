@@ -18,7 +18,8 @@ public class Enemy : MonoBehaviour
     public BehaviorState Behavior;
     public int InvestigationAlertnessThreshold = 3;
     public Transform[] RoamDestinations;
-    public float alertnessReductionPerRoam = 0.25f;
+    public float AlertnessReductionPerRoam = 0.25f;
+    public float ChaseUpdateTickTime = .25f;
 
     private Mover mover;
     private float alertness = 0f;
@@ -99,7 +100,7 @@ public class Enemy : MonoBehaviour
                 Investigate();
                 break;
             case BehaviorState.Chasing:
-                // TODO: Actual chasing behavior
+                InvokeRepeating("Chase", 0, 0.25f);
                 break;
         }
     }
@@ -111,7 +112,7 @@ public class Enemy : MonoBehaviour
     private void Investigate()
     {
         Debug.Log(name + " is investigating.");
-        Move(LastPlayerPos.Value);
+        Move(LastPlayerPos);
     }
 
     /// <summary>
@@ -121,7 +122,13 @@ public class Enemy : MonoBehaviour
     {
         Debug.Log(name + " is roaming.");
         Move(RandomUtil.RandomElement(RoamDestinations).position);
-        LowerAlertnessLevel(alertnessReductionPerRoam);
+        LowerAlertnessLevel(AlertnessReductionPerRoam);
+    }
+
+    private void Chase()
+    {
+        Debug.Log(name + " is chasing!");
+        Move(LastPlayerPos);
     }
 
     /// <summary>
@@ -142,7 +149,7 @@ public class Enemy : MonoBehaviour
                 UpdateBehaviorState(BehaviorState.Roaming);
                 break;
             case BehaviorState.Chasing:
-                // TODO: Actual chasing behavior
+                Chase();
                 break;
         }
     }
