@@ -102,7 +102,7 @@ public class PlayerCameraScript : MonoBehaviour {
 			transform.localRotation = originalRotation * xQuaternion;			
 		}
 		else
-		{			
+		{
 			rotAverageY = 0f;
 
 			rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
