@@ -116,6 +116,10 @@ NavMeshSettings:
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: a97abc7cc4cdd294e87ff74d4ba60a91, type: 3}
   m_PrefabInternal: {fileID: 597926759}
+--- !u!4 &1617947 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 400000, guid: a97abc7cc4cdd294e87ff74d4ba60a91, type: 3}
+  m_PrefabInternal: {fileID: 597926759}
 --- !u!64 &1617948
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4667,12 +4671,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 777350073}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.70710677}
-  m_LocalPosition: {x: -29.2, y: 9.68, z: 61.7}
-  m_LocalScale: {x: 156.68571, y: 156.68576, z: -156.6858}
+  m_LocalRotation: {x: 0.0000020862688, y: -0.70710677, z: 0.7071068, w: 0.0000020862688}
+  m_LocalPosition: {x: 41.030205, y: 152.75891, z: -12.624933}
+  m_LocalScale: {x: 2472.6377, y: 2472.639, z: -2472.6396}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_Father: {fileID: 1617947}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90.00001, y: 0, z: 0}
 --- !u!1 &782822626
 GameObject:
@@ -11117,7 +11121,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1802176175}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Objects
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12576,12 +12580,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2118654660}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.70710677}
-  m_LocalPosition: {x: -29.2, y: 0.1, z: 61.7}
-  m_LocalScale: {x: 156.68571, y: 156.68576, z: 156.68576}
+  m_LocalRotation: {x: 0.0000020862688, y: -0.70710677, z: 0.7071068, w: 0.0000020862688}
+  m_LocalPosition: {x: 41.030205, y: 1.5780883, z: -12.624933}
+  m_LocalScale: {x: 2472.6377, y: 2472.639, z: 2472.639}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_Father: {fileID: 1617947}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90.00001, y: 0, z: 0}
 --- !u!1 &2128050517
 GameObject:
