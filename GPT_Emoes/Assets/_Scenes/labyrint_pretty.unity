@@ -21508,11 +21508,22 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1064029650}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b200ceda39a40af43bbb16a879f0791f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _noiseFilterTolerance: 0
+  _blurTolerance: -4.6
+  _upsampleTolerance: -12
+  _rejectionFalloff: 2.5
+  _strength: 1
+  _debug: 0
+  _downsample1Compute: {fileID: 0}
+  _downsample2Compute: {fileID: 0}
+  _renderCompute: {fileID: 0}
+  _upsampleCompute: {fileID: 0}
+  _blitShader: {fileID: 0}
 --- !u!1001 &1068648229
 Prefab:
   m_ObjectHideFlags: 0

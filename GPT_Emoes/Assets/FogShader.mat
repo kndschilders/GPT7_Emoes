@@ -71,9 +71,12 @@ Material:
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
-    - _depth: 30.09105
-    - _fogthickness: 0.2
+    - _depth: 41
+    - _fogthickness: 0.135
+    - _lens: 0
     - _maxFog: -0.03
+    - _node_3877: 8.4
+    - _radialfog: 2.03
     m_Colors:
     - _BG_bot: {r: 0.40048173, g: 0.3127703, b: 0.47794116, a: 1}
     - _BG_top: {r: 0, g: 0, b: 0, a: 1}
