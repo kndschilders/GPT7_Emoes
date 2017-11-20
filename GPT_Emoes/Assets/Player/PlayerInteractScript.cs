@@ -29,10 +29,12 @@ public class PlayerInteractScript : MonoBehaviour {
 			isLookingAtHidingSpot = false;
 		}
 
-		if (isLookingAtHidingSpot)
-			GUIManager.instance.SetInteractionText ("Press E to Hide");
-		else
-			GUIManager.instance.SetInteractionText ("");
+		if (GUIManager.instance) {
+			if (isLookingAtHidingSpot)
+				GUIManager.instance.SetInteractionText ("Press E to Hide");
+			else
+				GUIManager.instance.SetInteractionText ("");
+		}
 
 		if (Input.GetKeyDown (KeyCode.E)) {
 			if (isLookingAtHidingSpot) {

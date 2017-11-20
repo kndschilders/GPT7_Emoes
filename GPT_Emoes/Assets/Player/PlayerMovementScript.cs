@@ -66,17 +66,19 @@ public class PlayerMovementScript : MonoBehaviour {
 			// Player is hiding, do nothing currently...
 		}
 
-		switch (fogDistance) {
-			case FogDistance.Close:
-				Fog.startDistance = FogCloseDistance;
-				break;
-			case FogDistance.Far:
-				Fog.startDistance = FogFarDistance;
-			break;
-			case FogDistance.Normal:
-			default:
-				Fog.startDistance = FogNormalDistance;
-				break;
+		if (Fog) {
+			switch (fogDistance) {
+				case FogDistance.Close:
+					Fog.startDistance = FogCloseDistance;
+					break;
+				case FogDistance.Far:
+					Fog.startDistance = FogFarDistance;
+					break;
+				case FogDistance.Normal:
+				default:
+					Fog.startDistance = FogNormalDistance;
+					break;
+			}
 		}
 	}
 

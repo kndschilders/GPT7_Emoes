@@ -21491,14 +21491,14 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_RenderingPath: 3
+  m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 0
   m_AllowMSAA: 0
   m_ForceIntoRT: 0
-  m_OcclusionCulling: 0
+  m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
 --- !u!1001 &1068648229
@@ -28187,11 +28187,11 @@ Terrain:
   m_Enabled: 1
   serializedVersion: 3
   m_TerrainData: {fileID: 15600000, guid: 1a59f13736f791941804de045873c5a7, type: 2}
-  m_TreeDistance: 2000
-  m_TreeBillboardDistance: 60
-  m_TreeCrossFadeLength: 5
+  m_TreeDistance: 200
+  m_TreeBillboardDistance: 40
+  m_TreeCrossFadeLength: 10
   m_TreeMaximumFullLODCount: 50
-  m_DetailObjectDistance: 184
+  m_DetailObjectDistance: 25
   m_DetailObjectDensity: 1
   m_HeightmapPixelError: 5
   m_SplatMapDistance: 1000
@@ -36406,7 +36406,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb40cfb66c7587b48bbfc62d50a31250, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 6
+  Speed: 4
+  SprintSpeed: 12
   JumpSpeed: 8
   Gravity: 20
   Fog: {fileID: 0}
@@ -36450,7 +36451,7 @@ MonoBehaviour:
   maximumX: 360
   minimumY: -50
   maximumY: 50
-  frameCounter: 10
+  frameCounter: 4
 --- !u!54 &1827542151
 Rigidbody:
   m_ObjectHideFlags: 0
