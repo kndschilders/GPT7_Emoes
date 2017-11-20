@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: FogOfWarPlane
+  m_Shader: {fileID: 4800000, guid: 4a99159e9dc848c45a5e2bbcc52f410d, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 8400000, guid: 82ca7206bfcae9f4190ed1f85cf30cb1, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _BloorPower: 0.002
+    - _BlurPower: 0.002
+    - _FogMaxRadius: 1
+    - _FogRadius: 14.82
+    m_Colors:
+    - _Color: {r: 0, g: 0, b: 0, a: 0.91764706}
+    - _PLayer2_Pos: {r: 19.75, g: 0, b: 12.63, a: 1}
+    - _PLayer3_Pos: {r: -3.29, g: 0, b: 0, a: 1}
+    - _Player1_Pos: {r: 8.13, g: 0, b: 1.23, a: 1}
+    - _Player2_Pos: {r: 0, g: 0, b: 0, a: 1}
+    - _Player3_Pos: {r: 0, g: 0, b: 0, a: 1}

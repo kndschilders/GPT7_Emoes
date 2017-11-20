@@ -8,6 +8,7 @@ using UnityEngine;
 public class PlayerMovementScript : MonoBehaviour {
 
 	public float Speed = 6.0f;
+	public float SprintSpeed = 10.0f;
 	public float JumpSpeed = 8.0f;
 	public float Gravity = 20.0f;
 
@@ -43,9 +44,14 @@ public class PlayerMovementScript : MonoBehaviour {
 	void Update () {
 		if (!isHiding) {
 			if (cc.isGrounded) {
+				bool isSprinting = false;
+
+				if (Input.GetKey (KeyCode.LeftShift))
+					isSprinting = true;
+				
 				moveDirection = new Vector3 (Input.GetAxisRaw ("Horizontal"), 0.0f, Input.GetAxisRaw ("Vertical"));
 				moveDirection = transform.TransformDirection (moveDirection);
-				moveDirection *= Speed;
+				moveDirection *= isSprinting ? SprintSpeed : Speed;
 
 				if (Input.GetButton ("Jump"))
 					moveDirection.y = JumpSpeed;
