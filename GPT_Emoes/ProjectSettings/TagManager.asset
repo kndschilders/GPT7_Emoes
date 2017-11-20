@@ -14,11 +14,11 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - FogOfWar
+  - Player
+  - Enemy
+  - HidingPlaces
+  - MiniMap
   - 
   - 
   - 
