@@ -21386,6 +21386,7 @@ GameObject:
   - component: {fileID: 1064029654}
   - component: {fileID: 1064029652}
   - component: {fileID: 1064029653}
+  - component: {fileID: 1064029658}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -21440,13 +21441,13 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1064029650}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee4ab9821096c489f84e50f35b7b9644, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startDistance: 91.58
-  _useRadialDistance: 1
+  _startDistance: 1000
+  _useRadialDistance: 0
   _fadeToSkybox: 0
   _shader: {fileID: 4800000, guid: 3514cc2676a6c4db294c28459f22c359, type: 3}
 --- !u!81 &1064029655
@@ -21498,9 +21499,31 @@ Camera:
   m_HDR: 0
   m_AllowMSAA: 0
   m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
+  m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &1064029658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1064029650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b200ceda39a40af43bbb16a879f0791f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _noiseFilterTolerance: 0
+  _blurTolerance: -4.6
+  _upsampleTolerance: -12
+  _rejectionFalloff: 1
+  _strength: 2
+  _debug: 0
+  _downsample1Compute: {fileID: 7200000, guid: 659dc93a3764e164e8dafb2061ff317b, type: 3}
+  _downsample2Compute: {fileID: 7200000, guid: dc4dd2f3a1157884e95a081b25b5731d, type: 3}
+  _renderCompute: {fileID: 7200000, guid: e49d5d8e57b0515469bb1ef4bf07b8dd, type: 3}
+  _upsampleCompute: {fileID: 7200000, guid: 2c3e5f47f9b262047ae010f239705186, type: 3}
+  _blitShader: {fileID: 4800000, guid: 532f9473ecfa16148a1ecdb3b72a44e8, type: 3}
 --- !u!1001 &1068648229
 Prefab:
   m_ObjectHideFlags: 0
