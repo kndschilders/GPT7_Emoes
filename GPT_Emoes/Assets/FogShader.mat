@@ -71,7 +71,7 @@ Material:
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
-    - _depth: 10.4
+    - _depth: 38.17269
     - _fogthickness: 0.18
     - _maxFog: -0.03
     m_Colors:
