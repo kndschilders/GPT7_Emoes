@@ -18,20 +18,156 @@ public class Enemy : MonoBehaviour
     public BehaviorState Behavior;
     public int InvestigationAlertnessThreshold = 3;
     public Transform[] RoamDestinations;
-    public float alertnessReductionPerRoam = 0.25f;
+    public float AlertnessReductionPerRoam = 0.25f;
+    public float MaxDistanceToPlayer = 100f;
+    public float DistanceCheckTickTime = 2f;
+    public float DistanceToSelfWeight = 1f;
+    public float DistanceToPlayerWeight = 1f;
 
     private Mover mover;
     private float alertness = 0f;
+    private GameObject playerObject;
 
     private void Awake()
     {
         mover = GetComponent<Mover>();
+        playerObject = GameObject.FindGameObjectWithTag("Player");
     }
 
     private void Start()
     {
+        // Init behavior
+        UpdateBehaviorState(Behavior);
+
+        // Start the distance check cycle
+        InvokeRepeating("MaintainDistanceToPlayer", DistanceCheckTickTime, DistanceCheckTickTime);
+    }
+
+    #region Distance maintenance
+    /// <summary>
+    /// Checks if the path distance to the player exceeds the limit and if so, teleports to a more suitable location.
+    /// </summary>
+    private void MaintainDistanceToPlayer()
+    {
+        if (playerObject == null)
+            return;
+
+        if (mover.GetPathDistanceToTarget(playerObject.transform) > MaxDistanceToPlayer)
+            TeleportToSuitableLocation();
+    }
+
+    /// <summary>
+    /// Teleports to a roam destination closer to the player
+    /// </summary>
+    private void TeleportToSuitableLocation()
+    {
+        transform.position = GetOptimalTeleportLocation(DistanceToPlayerWeight, DistanceToSelfWeight);
         UpdateBehaviorState(Behavior);
     }
+
+    /// <summary>
+    /// Returns a location that has an optimal distance to player and distance to self.
+    /// </summary>
+    /// <returns></returns>
+    private Vector3 GetOptimalTeleportLocation(float distanceToPlayerWeight, float distanceToSelfWeight)
+    {
+        // Get distances
+        float farthestDistanceToPlayer, closestDistanceToSelf;
+        Dictionary<Vector3, float> distancesToPlayer, distancesToSelf;
+        GetDistancesPerRoamDestination(out farthestDistanceToPlayer, out closestDistanceToSelf, out distancesToPlayer, out distancesToSelf);
+
+        // Determine score per location (also filter locations that are too far away)
+        Dictionary<Vector3, float> scoresPerLocation = new Dictionary<Vector3, float>();
+        foreach (KeyValuePair<Vector3, float> entry in distancesToPlayer)
+        {
+            // Skip scoring locations that are out of bounds
+            if (Vector3.Distance(entry.Key, playerObject.transform.position) > MaxDistanceToPlayer)
+                continue;
+
+            // Get distances
+            float distancePlayer = entry.Value;
+            float distanceSelf;
+            distancesToSelf.TryGetValue(entry.Key, out distanceSelf);
+
+            // Determine scores
+            float distancePlayerScore = distancePlayer / farthestDistanceToPlayer * distanceToPlayerWeight;
+            float distanceSelfScore = (closestDistanceToSelf / distanceSelf) * distanceToSelfWeight; // distance to self has 3 times the 'weight' of distance to player
+            scoresPerLocation.Add(entry.Key, distancePlayerScore + distanceSelfScore);
+        }
+
+        // Return best match
+        return GetLocationWithHighestScore(scoresPerLocation);
+    }
+
+    /// <summary>
+    /// Returns a location that either has the highest score or is within the top x percent highest scoring.
+    /// </summary>
+    /// <param name="scoresPerLocation"></param>
+    /// <param name="randomHighscorer"></param>
+    /// <param name="topPercentRange"></param>
+    /// <returns></returns>
+    private Vector3 GetLocationWithHighestScore(Dictionary<Vector3, float> scoresPerLocation, bool randomHighscorer = false, float topPercentRange = .25f)
+    {
+        List<Vector3> candidates = new List<Vector3>();
+
+        float highestScore = 0f;
+        Vector3 highestScoringLocation = Vector3.zero;
+        // Determine highest score
+        foreach (KeyValuePair<Vector3, float> entry in scoresPerLocation)
+        {
+            if (entry.Value > highestScore)
+            {
+                highestScore = entry.Value;
+                highestScoringLocation = entry.Key;
+            }
+        }
+
+        // Determine candidates
+        foreach (KeyValuePair<Vector3, float> entry in scoresPerLocation)
+        {
+            if (entry.Value > highestScore * (1 - topPercentRange))
+                candidates.Add(entry.Key);
+        }
+
+        // Return either a random entry in the top x percent or the entry with the highest score.
+        return randomHighscorer ? RandomUtil.RandomElement(candidates.ToArray()) : highestScoringLocation;
+    }
+
+    /// <summary>
+    /// Calculates distances to player and self for every entry in the Roam Destinations list.
+    /// </summary>
+    /// <param name="farthestDistanceToPlayer"></param>
+    /// <param name="closestDistanceToSelf"></param>
+    /// <param name="distancesToPlayer"></param>
+    /// <param name="distancesToSelf"></param>
+    private void GetDistancesPerRoamDestination(out float farthestDistanceToPlayer, out float closestDistanceToSelf, out Dictionary<Vector3, float> distancesToPlayer, out Dictionary<Vector3, float> distancesToSelf)
+    {
+        distancesToPlayer = new Dictionary<Vector3, float>();
+        farthestDistanceToPlayer = 0f;
+        distancesToSelf = new Dictionary<Vector3, float>();
+        closestDistanceToSelf = 9999999999999999999999999f;
+
+        // Calculate distances per destination
+        foreach (Transform destination in RoamDestinations)
+        {
+            // Calc distance to player
+            float distanceToPlayer = Vector3.Distance(destination.position, playerObject.transform.position);
+            distancesToPlayer.Add(destination.position, distanceToPlayer);
+
+            // Update farthest distance to player
+            if (distanceToPlayer > farthestDistanceToPlayer)
+                farthestDistanceToPlayer = distanceToPlayer;
+
+            // Calc distance to self
+            float distanceToSelf = Vector3.Distance(destination.position, transform.position);
+            distancesToSelf.Add(destination.position, distanceToSelf);
+
+            // Update closest distance to self
+            if (distanceToSelf < closestDistanceToSelf)
+                closestDistanceToSelf = distanceToSelf;
+        }
+    }
+    #endregion
 
     /// <summary>
     /// Respond to a player presence update based on current behavior state
@@ -121,11 +257,10 @@ public class Enemy : MonoBehaviour
     {
         Debug.Log(name + " is roaming.");
         Move(RandomUtil.RandomElement(RoamDestinations).position);
-        LowerAlertnessLevel(alertnessReductionPerRoam);
+        LowerAlertnessLevel(AlertnessReductionPerRoam);
     }
 
     /// <summary>
-    /// TODO: determine what to do based on behavior state
     /// When in roaming mode, roam to a new destination.
     /// When in investigation mode, switch to roaming mode.
     /// </summary>
@@ -149,7 +284,6 @@ public class Enemy : MonoBehaviour
 
     /// <summary>
     /// Move toward the last known player pos.
-    /// Also start checking if the destination has been reached.
     /// </summary>
     private void Move(Vector3 destination)
     {
