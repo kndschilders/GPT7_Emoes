@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Mover))]
+[RequireComponent(typeof(Mover), typeof(BoxCollider))]
 public class Enemy : MonoBehaviour
 {
     public enum BehaviorState
@@ -18,13 +18,14 @@ public class Enemy : MonoBehaviour
     public BehaviorState Behavior;
     public int InvestigationAlertnessThreshold = 3;
     public float AlertnessReductionPerRoam = 0.25f;
-
     public float MaxDistanceToPlayer = 100f;
     public float DistanceCheckTickTime = 2f;
     public float DistanceToSelfWeight = 1f;
     public float DistanceToPlayerWeight = 1f;
     public float ChaseUpdateTickTime = .25f;
-
+    public float RoamSpeed = 1f;
+    public float InvestigateSpeed = 1.25f;
+    public float ChaseSpeed = 2f;
 
     private GameObject[] RoamDestinations;
     private Mover mover;
@@ -36,6 +37,11 @@ public class Enemy : MonoBehaviour
         mover = GetComponent<Mover>();
         playerObject = GameObject.FindGameObjectWithTag("Player");
         RoamDestinations = GameObject.FindGameObjectsWithTag("Destination");
+
+        if (playerObject != null)
+            Debug.Log("Found player: " + playerObject.name);
+        else
+            Debug.Log("No player found! Please mark something with the Player tag.");
     }
 
     private void Start()
@@ -46,6 +52,48 @@ public class Enemy : MonoBehaviour
         // Start the distance check cycle
         InvokeRepeating("MaintainDistanceToPlayer", DistanceCheckTickTime, DistanceCheckTickTime);
     }
+
+    #region Player detection
+    private void OnTriggerEnter(Collider other)
+    {
+        // test
+        Debug.Log("Something entered " + name + "'s vision");
+
+        // Only check for player
+        if (!other.gameObject == playerObject)
+        {
+            Debug.Log("It's not the player...");
+            return;
+        }
+
+        // Don't do anything when player not in LOS
+        if (!PlayerInLOS())
+            return;
+
+        // When in LOS, start chasing.
+        UpdateBehaviorState(BehaviorState.Chasing);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        // Only check for player
+        if (other != playerObject)
+            return;
+
+        // When chasing and player disappears from sight, go into investigation mode
+        if (Behavior == BehaviorState.Chasing)
+            UpdateBehaviorState(BehaviorState.Investigating);
+    }
+
+    private bool PlayerInLOS()
+    {
+        // Check if player in LOS.
+        RaycastHit hit;
+        Ray ray = new Ray(transform.position, (playerObject.transform.position - transform.position).normalized);
+        Physics.Raycast(ray, out hit);
+        return hit.collider != null && (hit.collider.gameObject == playerObject);
+    }
+    #endregion
 
     #region Distance maintenance
     /// <summary>
@@ -173,25 +221,7 @@ public class Enemy : MonoBehaviour
     }
     #endregion
 
-    /// <summary>
-    /// Respond to a player presence update based on current behavior state
-    /// </summary>
-    public void OnPlayerPresenceUpdate()
-    {
-        switch (Behavior)
-        {
-            case BehaviorState.Roaming:
-                RaiseAlertnessLevel();
-                break;
-            case BehaviorState.Investigating:
-                Investigate();
-                break;
-            case BehaviorState.Chasing:
-                // TODO: actual chasing behavior
-                break;
-        }
-    }
-
+    #region Alertness
     /// <summary>
     /// Increases alertness level. When threshold reached, switches behavior to Investigating.
     /// </summary>
@@ -220,28 +250,44 @@ public class Enemy : MonoBehaviour
         if (alertness < InvestigationAlertnessThreshold && Behavior != BehaviorState.Roaming)
             UpdateBehaviorState(BehaviorState.Roaming);
     }
+    #endregion
+
+    #region Behavior
+    /// <summary>
+    /// Move toward the last known player pos.
+    /// </summary>
+    private void Move(Vector3 destination)
+    {
+        mover.MoveToLocation(destination);
+    }
 
     /// <summary>
-    /// Updates the behavior state.
+    /// Reduce alertness and move to a random roam destination.
     /// </summary>
-    /// <param name="newState"></param>
-    private void UpdateBehaviorState(BehaviorState newState)
+    private void Roam()
     {
-        Behavior = newState;
-        Debug.Log(name + " behaviour state updated to: " + Behavior);
+        Debug.Log(name + " is roaming.");
+        Move(RandomUtil.RandomElement(RoamDestinations).transform.position);
+        LowerAlertnessLevel(AlertnessReductionPerRoam);
+    }
 
-        switch (Behavior)
+    /// <summary>
+    /// When called whilst chase behavior is active, start moving towards player location until switched to another behavior.
+    /// </summary>
+    private void Chase()
+    {
+        if (Behavior != BehaviorState.Chasing)
+            return;
+
+        // Switch to investigation mode when player no longer in LOS
+        if (!PlayerInLOS())
         {
-            case BehaviorState.Roaming:
-                Roam();
-                break;
-            case BehaviorState.Investigating:
-                Investigate();
-                break;
-            case BehaviorState.Chasing:
-                InvokeRepeating("Chase", 0, 0.25f);
-                break;
+            UpdateBehaviorState(BehaviorState.Investigating);
+            return;
         }
+
+        Move(playerObject.transform.position);
+        Debug.Log(name + " is chasing!");
     }
 
     /// <summary>
@@ -255,24 +301,54 @@ public class Enemy : MonoBehaviour
     }
 
     /// <summary>
-    /// Reduce alertness and move to a random roam destination.
+    /// Updates the behavior state.
     /// </summary>
-    private void Roam()
+    /// <param name="newState"></param>
+    private void UpdateBehaviorState(BehaviorState newState)
     {
-        Debug.Log(name + " is roaming.");
-        Move(RandomUtil.RandomElement(RoamDestinations).transform.position);
-        LowerAlertnessLevel(AlertnessReductionPerRoam);
+        Behavior = newState;
+        Debug.Log(name + " behaviour state updated to: " + Behavior);
+
+        switch (Behavior)
+        {
+            case BehaviorState.Roaming:
+                mover.SetMoveSpeed(RoamSpeed);
+                Roam();
+                break;
+            case BehaviorState.Investigating:
+                mover.SetMoveSpeed(InvestigateSpeed);
+                Investigate();
+                break;
+            case BehaviorState.Chasing:
+                mover.SetMoveSpeed(ChaseSpeed);
+                InvokeRepeating("Chase", 0, ChaseUpdateTickTime);
+                break;
+        }
     }
 
-    private void Chase()
+    /// <summary>
+    /// Respond to a player presence update based on current behavior state
+    /// </summary>
+    public void OnPlayerPresenceUpdate()
     {
-        Debug.Log(name + " is chasing!");
-        Move(LastPlayerPos);
+        switch (Behavior)
+        {
+            case BehaviorState.Roaming:
+                RaiseAlertnessLevel();
+                break;
+            case BehaviorState.Investigating:
+                Investigate();
+                break;
+            case BehaviorState.Chasing:
+
+                break;
+        }
     }
 
     /// <summary>
     /// When in roaming mode, roam to a new destination.
     /// When in investigation mode, switch to roaming mode.
+    /// Should be assigned to the mover's OnDestinationReached event.
     /// </summary>
     public void OnDestinationReached()
     {
@@ -287,16 +363,9 @@ public class Enemy : MonoBehaviour
                 UpdateBehaviorState(BehaviorState.Roaming);
                 break;
             case BehaviorState.Chasing:
-                Chase();
+
                 break;
         }
     }
-
-    /// <summary>
-    /// Move toward the last known player pos.
-    /// </summary>
-    private void Move(Vector3 destination)
-    {
-        mover.MoveToLocation(destination);
-    }
+    #endregion
 }

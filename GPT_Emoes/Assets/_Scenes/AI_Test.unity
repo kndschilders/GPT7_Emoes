@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 32667868}
   m_Layer: 0
   m_Name: MovePoint (3)
-  m_TagString: Untagged
+  m_TagString: Destination
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -209,7 +209,7 @@ GameObject:
   - component: {fileID: 67995834}
   m_Layer: 0
   m_Name: MovePoint (10)
-  m_TagString: Untagged
+  m_TagString: Destination
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -293,7 +293,7 @@ GameObject:
   - component: {fileID: 110525272}
   m_Layer: 0
   m_Name: MovePoint (19)
-  m_TagString: Untagged
+  m_TagString: Destination
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -377,7 +377,7 @@ GameObject:
   - component: {fileID: 229294624}
   m_Layer: 0
   m_Name: MovePoint (22)
-  m_TagString: Untagged
+  m_TagString: Destination
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -625,7 +625,7 @@ GameObject:
   - component: {fileID: 364375020}
   m_Layer: 0
   m_Name: MovePoint (9)
-  m_TagString: Untagged
+  m_TagString: Destination
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -709,7 +709,7 @@ GameObject:
   - component: {fileID: 509204483}
   m_Layer: 0
   m_Name: MovePoint (20)
-  m_TagString: Untagged
+  m_TagString: Destination
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -793,7 +793,7 @@ GameObject:
   - component: {fileID: 540115133}
   m_Layer: 0
   m_Name: MovePoint (12)
-  m_TagString: Untagged
+  m_TagString: Destination
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -877,7 +877,7 @@ GameObject:
   - component: {fileID: 678307887}
   m_Layer: 0
   m_Name: MovePoint (5)
-  m_TagString: Untagged
+  m_TagString: Destination
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -961,7 +961,7 @@ GameObject:
   - component: {fileID: 821737373}
   m_Layer: 0
   m_Name: MovePoint (11)
-  m_TagString: Untagged
+  m_TagString: Destination
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1045,7 +1045,7 @@ GameObject:
   - component: {fileID: 887893398}
   m_Layer: 0
   m_Name: MovePoint (8)
-  m_TagString: Untagged
+  m_TagString: Destination
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1129,7 +1129,7 @@ GameObject:
   - component: {fileID: 900375177}
   m_Layer: 0
   m_Name: MovePoint (21)
-  m_TagString: Untagged
+  m_TagString: Destination
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1266,7 +1266,7 @@ GameObject:
   - component: {fileID: 982637144}
   m_Layer: 0
   m_Name: MovePoint (14)
-  m_TagString: Untagged
+  m_TagString: Destination
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1350,7 +1350,7 @@ GameObject:
   - component: {fileID: 995251951}
   m_Layer: 0
   m_Name: MovePoint (2)
-  m_TagString: Untagged
+  m_TagString: Destination
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1434,7 +1434,7 @@ GameObject:
   - component: {fileID: 1026153501}
   m_Layer: 0
   m_Name: MovePoint (17)
-  m_TagString: Untagged
+  m_TagString: Destination
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1689,6 +1689,31 @@ Prefab:
       propertyPath: RoamDestinations.Array.data[24]
       value: 
       objectReference: {fileID: 1337756808}
+    - target: {fileID: 114076562616211670, guid: c0fa0a7cf89d4a941992a54572b3e6fe,
+        type: 2}
+      propertyPath: RoamSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114076562616211670, guid: c0fa0a7cf89d4a941992a54572b3e6fe,
+        type: 2}
+      propertyPath: InvestigateSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114076562616211670, guid: c0fa0a7cf89d4a941992a54572b3e6fe,
+        type: 2}
+      propertyPath: ChaseSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 135497851152333752, guid: c0fa0a7cf89d4a941992a54572b3e6fe,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114076562616211670, guid: c0fa0a7cf89d4a941992a54572b3e6fe,
+        type: 2}
+      propertyPath: ChaseUpdateTickTime
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c0fa0a7cf89d4a941992a54572b3e6fe, type: 2}
   m_IsPrefabParent: 0
@@ -1705,7 +1730,7 @@ GameObject:
   - component: {fileID: 1178263681}
   m_Layer: 0
   m_Name: MovePoint
-  m_TagString: Untagged
+  m_TagString: Destination
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1789,7 +1814,7 @@ GameObject:
   - component: {fileID: 1227558941}
   m_Layer: 0
   m_Name: MovePoint (13)
-  m_TagString: Untagged
+  m_TagString: Destination
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1873,7 +1898,7 @@ GameObject:
   - component: {fileID: 1337756809}
   m_Layer: 0
   m_Name: MovePoint (24)
-  m_TagString: Untagged
+  m_TagString: Destination
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1944,6 +1969,23 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1337756807}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1417028998 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1875381236685058, guid: c0fa0a7cf89d4a941992a54572b3e6fe,
+    type: 2}
+  m_PrefabInternal: {fileID: 1065368619}
+--- !u!65 &1417028999
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1417028998}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 1, z: 15}
+  m_Center: {x: 0, y: 0, z: 8}
 --- !u!1 &1486428238
 GameObject:
   m_ObjectHideFlags: 0
@@ -1957,7 +1999,7 @@ GameObject:
   - component: {fileID: 1486428240}
   m_Layer: 0
   m_Name: MovePoint (15)
-  m_TagString: Untagged
+  m_TagString: Destination
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2041,7 +2083,7 @@ GameObject:
   - component: {fileID: 1512358456}
   m_Layer: 0
   m_Name: MovePoint (7)
-  m_TagString: Untagged
+  m_TagString: Destination
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2125,6 +2167,7 @@ GameObject:
   - component: {fileID: 1536586019}
   - component: {fileID: 1536586024}
   - component: {fileID: 1536586023}
+  - component: {fileID: 1536586025}
   m_Layer: 0
   m_Name: Simulated player
   m_TagString: Player
@@ -2234,35 +2277,24 @@ MonoBehaviour:
   StressLevel: {fileID: 11400000, guid: 27bbe881bfd2d1c45bc7f32d912e10a7, type: 2}
   LastPos: {fileID: 11400000, guid: 331228a8a3e562b4686ac710d61d227e, type: 2}
   PresenceUpdate: {fileID: 11400000, guid: 139f9e94b46861e428de0ff2d2decdc1, type: 2}
-  MovePoints:
-  - {fileID: 1178263680}
-  - {fileID: 1646538475}
-  - {fileID: 995251950}
-  - {fileID: 32667867}
-  - {fileID: 2101026874}
-  - {fileID: 678307886}
-  - {fileID: 1694227518}
-  - {fileID: 1512358455}
-  - {fileID: 887893397}
-  - {fileID: 364375019}
-  - {fileID: 67995833}
-  - {fileID: 821737372}
-  - {fileID: 540115132}
-  - {fileID: 1227558940}
-  - {fileID: 982637143}
-  - {fileID: 1486428239}
-  - {fileID: 1843434096}
-  - {fileID: 1026153500}
-  - {fileID: 1568138153}
-  - {fileID: 110525271}
-  - {fileID: 509204482}
-  - {fileID: 900375176}
-  - {fileID: 229294623}
-  - {fileID: 1562951676}
-  - {fileID: 1337756808}
   SimulationTickTime: 5
   MinStressLevel: 0.704
   MaxStressLevel: 1
+--- !u!54 &1536586025
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1536586018}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1562951675
 GameObject:
   m_ObjectHideFlags: 0
@@ -2276,7 +2308,7 @@ GameObject:
   - component: {fileID: 1562951677}
   m_Layer: 0
   m_Name: MovePoint (23)
-  m_TagString: Untagged
+  m_TagString: Destination
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2360,7 +2392,7 @@ GameObject:
   - component: {fileID: 1568138154}
   m_Layer: 0
   m_Name: MovePoint (18)
-  m_TagString: Untagged
+  m_TagString: Destination
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2444,7 +2476,7 @@ GameObject:
   - component: {fileID: 1646538476}
   m_Layer: 0
   m_Name: MovePoint (1)
-  m_TagString: Untagged
+  m_TagString: Destination
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2528,7 +2560,7 @@ GameObject:
   - component: {fileID: 1694227519}
   m_Layer: 0
   m_Name: MovePoint (6)
-  m_TagString: Untagged
+  m_TagString: Destination
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2677,7 +2709,7 @@ GameObject:
   - component: {fileID: 1843434097}
   m_Layer: 0
   m_Name: MovePoint (16)
-  m_TagString: Untagged
+  m_TagString: Destination
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2761,7 +2793,7 @@ GameObject:
   - component: {fileID: 2101026875}
   m_Layer: 0
   m_Name: MovePoint (4)
-  m_TagString: Untagged
+  m_TagString: Destination
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

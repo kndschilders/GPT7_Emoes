@@ -20,6 +20,11 @@ public class Mover : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
     }
 
+    public void SetMoveSpeed(float speed)
+    {
+        agent.speed = speed;
+    }
+
     /// <summary>
     /// Start moving to the new location. Fires DestinationReached event when destination is reached.
     /// </summary>

@@ -29,12 +29,7 @@ public class PlayerSimulator : MonoBehaviour
     private void Start()
     {
         // Start the simulation tick
-        InvokeRepeating("SimulationTick", SimulationTickTime, SimulationTickTime);
-    }
-
-    private void Update()
-    {
-        LastPos.Value = transform.position;
+        InvokeRepeating("SimulationTick", 0f, SimulationTickTime);
     }
 
     private void SimulationTick()
@@ -110,6 +105,7 @@ public class PlayerSimulator : MonoBehaviour
     /// </summary>
     private void UpdatePresence()
     {
+        LastPos.Value = transform.position;
         PresenceUpdate.Raise();
         Debug.Log("Presence update triggered");
     }
