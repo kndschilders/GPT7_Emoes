@@ -1547,7 +1547,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4777467963483398, guid: c0fa0a7cf89d4a941992a54572b3e6fe, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 114076562616211670, guid: c0fa0a7cf89d4a941992a54572b3e6fe,
         type: 2}
@@ -2123,8 +2123,10 @@ GameObject:
   - component: {fileID: 1536586021}
   - component: {fileID: 1536586020}
   - component: {fileID: 1536586019}
+  - component: {fileID: 1536586024}
+  - component: {fileID: 1536586023}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: Simulated player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2195,8 +2197,72 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!195 &1536586023
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1536586018}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &1536586024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1536586018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb0d0b423f406ce489860b5850b45342, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StressLevel: {fileID: 11400000, guid: 27bbe881bfd2d1c45bc7f32d912e10a7, type: 2}
+  LastPos: {fileID: 11400000, guid: 331228a8a3e562b4686ac710d61d227e, type: 2}
+  PresenceUpdate: {fileID: 11400000, guid: 139f9e94b46861e428de0ff2d2decdc1, type: 2}
+  MovePoints:
+  - {fileID: 1178263680}
+  - {fileID: 1646538475}
+  - {fileID: 995251950}
+  - {fileID: 32667867}
+  - {fileID: 2101026874}
+  - {fileID: 678307886}
+  - {fileID: 1694227518}
+  - {fileID: 1512358455}
+  - {fileID: 887893397}
+  - {fileID: 364375019}
+  - {fileID: 67995833}
+  - {fileID: 821737372}
+  - {fileID: 540115132}
+  - {fileID: 1227558940}
+  - {fileID: 982637143}
+  - {fileID: 1486428239}
+  - {fileID: 1843434096}
+  - {fileID: 1026153500}
+  - {fileID: 1568138153}
+  - {fileID: 110525271}
+  - {fileID: 509204482}
+  - {fileID: 900375176}
+  - {fileID: 229294623}
+  - {fileID: 1562951676}
+  - {fileID: 1337756808}
+  SimulationTickTime: 5
+  MinStressLevel: 0.704
+  MaxStressLevel: 1
 --- !u!1 &1562951675
 GameObject:
   m_ObjectHideFlags: 0
@@ -2682,98 +2748,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1843434095}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1001 &1851019694
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4626330586388780, guid: 6400219f7d9a32b418f7f336c3d4cce1, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 8.006712
-      objectReference: {fileID: 0}
-    - target: {fileID: 4626330586388780, guid: 6400219f7d9a32b418f7f336c3d4cce1, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0.68523335
-      objectReference: {fileID: 0}
-    - target: {fileID: 4626330586388780, guid: 6400219f7d9a32b418f7f336c3d4cce1, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 2.1516047
-      objectReference: {fileID: 0}
-    - target: {fileID: 4626330586388780, guid: 6400219f7d9a32b418f7f336c3d4cce1, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4626330586388780, guid: 6400219f7d9a32b418f7f336c3d4cce1, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4626330586388780, guid: 6400219f7d9a32b418f7f336c3d4cce1, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4626330586388780, guid: 6400219f7d9a32b418f7f336c3d4cce1, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4626330586388780, guid: 6400219f7d9a32b418f7f336c3d4cce1, type: 2}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114120606626070360, guid: 6400219f7d9a32b418f7f336c3d4cce1,
-        type: 2}
-      propertyPath: MovePoints.Array.data[0]
-      value: 
-      objectReference: {fileID: 1178263680}
-    - target: {fileID: 114120606626070360, guid: 6400219f7d9a32b418f7f336c3d4cce1,
-        type: 2}
-      propertyPath: MovePoints.Array.data[1]
-      value: 
-      objectReference: {fileID: 1646538475}
-    - target: {fileID: 114120606626070360, guid: 6400219f7d9a32b418f7f336c3d4cce1,
-        type: 2}
-      propertyPath: MovePoints.Array.data[2]
-      value: 
-      objectReference: {fileID: 995251950}
-    - target: {fileID: 114120606626070360, guid: 6400219f7d9a32b418f7f336c3d4cce1,
-        type: 2}
-      propertyPath: MovePoints.Array.data[3]
-      value: 
-      objectReference: {fileID: 32667867}
-    - target: {fileID: 114120606626070360, guid: 6400219f7d9a32b418f7f336c3d4cce1,
-        type: 2}
-      propertyPath: MovePoints.Array.data[4]
-      value: 
-      objectReference: {fileID: 2101026874}
-    - target: {fileID: 114120606626070360, guid: 6400219f7d9a32b418f7f336c3d4cce1,
-        type: 2}
-      propertyPath: MovePoints.Array.data[5]
-      value: 
-      objectReference: {fileID: 678307886}
-    - target: {fileID: 114120606626070360, guid: 6400219f7d9a32b418f7f336c3d4cce1,
-        type: 2}
-      propertyPath: MovePoints.Array.data[6]
-      value: 
-      objectReference: {fileID: 1694227518}
-    - target: {fileID: 114120606626070360, guid: 6400219f7d9a32b418f7f336c3d4cce1,
-        type: 2}
-      propertyPath: MovePoints.Array.data[7]
-      value: 
-      objectReference: {fileID: 1512358455}
-    - target: {fileID: 114120606626070360, guid: 6400219f7d9a32b418f7f336c3d4cce1,
-        type: 2}
-      propertyPath: MovePoints.Array.data[8]
-      value: 
-      objectReference: {fileID: 887893397}
-    - target: {fileID: 114120606626070360, guid: 6400219f7d9a32b418f7f336c3d4cce1,
-        type: 2}
-      propertyPath: MinStressLevel
-      value: 0.704
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 6400219f7d9a32b418f7f336c3d4cce1, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &2101026873
 GameObject:
   m_ObjectHideFlags: 0

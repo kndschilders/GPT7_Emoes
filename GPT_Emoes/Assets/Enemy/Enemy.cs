@@ -17,7 +17,6 @@ public class Enemy : MonoBehaviour
     public Vector3Reference LastPlayerPos;
     public BehaviorState Behavior;
     public int InvestigationAlertnessThreshold = 3;
-    public Transform[] RoamDestinations;
     public float AlertnessReductionPerRoam = 0.25f;
 
     public float MaxDistanceToPlayer = 100f;
@@ -27,6 +26,7 @@ public class Enemy : MonoBehaviour
     public float ChaseUpdateTickTime = .25f;
 
 
+    private GameObject[] RoamDestinations;
     private Mover mover;
     private float alertness = 0f;
     private GameObject playerObject;
@@ -35,6 +35,7 @@ public class Enemy : MonoBehaviour
     {
         mover = GetComponent<Mover>();
         playerObject = GameObject.FindGameObjectWithTag("Player");
+        RoamDestinations = GameObject.FindGameObjectsWithTag("Destination");
     }
 
     private void Start()
@@ -151,19 +152,19 @@ public class Enemy : MonoBehaviour
         closestDistanceToSelf = 9999999999999999999999999f;
 
         // Calculate distances per destination
-        foreach (Transform destination in RoamDestinations)
+        foreach (GameObject destination in RoamDestinations)
         {
             // Calc distance to player
-            float distanceToPlayer = Vector3.Distance(destination.position, playerObject.transform.position);
-            distancesToPlayer.Add(destination.position, distanceToPlayer);
+            float distanceToPlayer = Vector3.Distance(destination.transform.position, playerObject.transform.position);
+            distancesToPlayer.Add(destination.transform.position, distanceToPlayer);
 
             // Update farthest distance to player
             if (distanceToPlayer > farthestDistanceToPlayer)
                 farthestDistanceToPlayer = distanceToPlayer;
 
             // Calc distance to self
-            float distanceToSelf = Vector3.Distance(destination.position, transform.position);
-            distancesToSelf.Add(destination.position, distanceToSelf);
+            float distanceToSelf = Vector3.Distance(destination.transform.position, transform.position);
+            distancesToSelf.Add(destination.transform.position, distanceToSelf);
 
             // Update closest distance to self
             if (distanceToSelf < closestDistanceToSelf)
@@ -259,9 +260,8 @@ public class Enemy : MonoBehaviour
     private void Roam()
     {
         Debug.Log(name + " is roaming.");
-        Move(RandomUtil.RandomElement(RoamDestinations).position);
+        Move(RandomUtil.RandomElement(RoamDestinations).transform.position);
         LowerAlertnessLevel(AlertnessReductionPerRoam);
-
     }
 
     private void Chase()
