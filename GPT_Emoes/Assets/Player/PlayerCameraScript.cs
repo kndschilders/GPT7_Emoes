@@ -5,6 +5,7 @@ using UnityEngine;
 /**
  * http://wiki.unity3d.com/index.php/SmoothMouseLook
  * */
+[System.Obsolete("This script is obsolete, use MouseLook instead!")]
 public class PlayerCameraScript : MonoBehaviour {
 
 	public enum RotationAxes {

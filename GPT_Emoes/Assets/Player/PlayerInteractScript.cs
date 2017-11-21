@@ -2,16 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerHidingScript))]
+
 public class PlayerInteractScript : MonoBehaviour {
 
 	public float InteractDistance = 3.0f;
 	public Transform CameraTransform;
 
 	private bool isLookingAtHidingSpot = false;
-	private PlayerMovementScript movementScript;
+	private PlayerHidingScript hidingScript;
+
+	//private MouseLook mouseLookScript;
+	public MouseLook[] mouseLookScripts;
 
 	void Start() {
-		movementScript = GetComponent<PlayerMovementScript> ();
+		hidingScript = GetComponent<PlayerHidingScript> ();
+		//mouseLookScript = GetComponent<MouseLook> ();
 	}
 
 	void Update () {
@@ -48,11 +54,36 @@ public class PlayerInteractScript : MonoBehaviour {
 				if (!hideSpotScript)
 					return;
 
-				Transform playerTransform = hideSpotScript.GetPlayerLocationTransform ();
+				Transform playerTransform = hideSpotScript.PlayerLocationTransform;
 
-				movementScript.EnterHidingSpot (playerTransform);
+				hidingScript.EnterHidingSpot (playerTransform);
+
+				foreach (MouseLook mouseLookScript in mouseLookScripts) {
+					mouseLookScript.minimumX = hideSpotScript.MinXAngle;
+					mouseLookScript.maximumX = hideSpotScript.MaxXAngle;
+					mouseLookScript.minimumY = hideSpotScript.MinYAngle;
+					mouseLookScript.maximumY = hideSpotScript.MaxYAngle;
+					mouseLookScript.CanLoopX = hideSpotScript.CanLookX;
+					mouseLookScript.CanLoopY = hideSpotScript.CanLookY;
+				}
+
+				//mouseLookScript.minimumX = hideSpotScript.MinXAngle;
+				//mouseLookScript.maximumX = hideSpotScript.MaxXAngle;
+				//mouseLookScript.canLoopX = false;
+
+
+				//mouseLookScript.minimumX = hideSpotScript.GetMinX ();
+				//mouseLookScript.maximumX = hideSpotScript.GetMaxX ();
 			} else {
-				movementScript.ExitHidingSpot ();
+				hidingScript.ExitHidingSpot ();
+
+				foreach (MouseLook mouseLookScript in mouseLookScripts) {
+					mouseLookScript.Reset ();
+				}
+
+				//mouseLookScript.minimumX = -360.0f;
+				//mouseLookScript.maximumX = 360.0f;
+				//mouseLookScript.canLoopX = true;
 			}
 		}
 	}

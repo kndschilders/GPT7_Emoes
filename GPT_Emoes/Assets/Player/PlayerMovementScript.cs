@@ -5,6 +5,7 @@ using UnityEngine;
 /**
  * https://stackoverflow.com/questions/39671974/unity3d-player-movement-script
  * */
+[System.Obsolete("This script is obsolete, use FPSInputController instead!")]
 public class PlayerMovementScript : MonoBehaviour {
 
 	public float Speed = 6.0f;
