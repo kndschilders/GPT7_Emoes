@@ -67,4 +67,20 @@ public class Mover : MonoBehaviour
         OnDestinationReached.Invoke();
         //Debug.Log("Mover: Destination reached!");
     }
+
+    /// <summary>
+    /// Returns the total distance of the path to the target.
+    /// </summary>
+    /// <param name="target"></param>
+    /// <returns></returns>
+    public float GetPathDistanceToTarget(Transform target)
+    {
+        NavMeshPath path = new NavMeshPath();
+        agent.CalculatePath(target.position, path);
+        float totalDistance = 0f;
+        for (int i = 0; i < path.corners.Length - 1; i++)
+            totalDistance += Vector3.Distance(path.corners[i], path.corners[i + 1]);
+
+        return totalDistance;
+    }
 }
