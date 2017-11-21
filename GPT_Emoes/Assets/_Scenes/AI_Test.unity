@@ -1714,7 +1714,8 @@ Prefab:
       propertyPath: ChaseUpdateTickTime
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 65639646735374668, guid: c0fa0a7cf89d4a941992a54572b3e6fe, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: c0fa0a7cf89d4a941992a54572b3e6fe, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1178263679
@@ -1986,6 +1987,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5, y: 1, z: 15}
   m_Center: {x: 0, y: 0, z: 8}
+--- !u!65 &1417029000
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1417028998}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1486428238
 GameObject:
   m_ObjectHideFlags: 0
