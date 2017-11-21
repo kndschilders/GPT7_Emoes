@@ -12,12 +12,17 @@ public class PlayerInteractScript : MonoBehaviour {
 	private bool isLookingAtHidingSpot = false;
 	private PlayerHidingScript hidingScript;
 
-	//private MouseLook mouseLookScript;
 	public MouseLook[] mouseLookScripts;
+
+
+	private CharacterController cc;
+	private Light pl;
 
 	void Start() {
 		hidingScript = GetComponent<PlayerHidingScript> ();
-		//mouseLookScript = GetComponent<MouseLook> ();
+
+		cc = GetComponent<CharacterController> ();
+		pl = GetComponentInChildren<Light> ();
 	}
 
 	void Update () {
@@ -63,17 +68,14 @@ public class PlayerInteractScript : MonoBehaviour {
 					mouseLookScript.maximumX = hideSpotScript.MaxXAngle;
 					mouseLookScript.minimumY = hideSpotScript.MinYAngle;
 					mouseLookScript.maximumY = hideSpotScript.MaxYAngle;
-					mouseLookScript.CanLoopX = hideSpotScript.CanLookX;
-					mouseLookScript.CanLoopY = hideSpotScript.CanLookY;
+					mouseLookScript.CanLoopX = hideSpotScript.CanLoopX;
+					mouseLookScript.CanLoopY = hideSpotScript.CanLoopY;
 				}
 
-				//mouseLookScript.minimumX = hideSpotScript.MinXAngle;
-				//mouseLookScript.maximumX = hideSpotScript.MaxXAngle;
-				//mouseLookScript.canLoopX = false;
+				if (cc) cc.enabled = false;
 
+				if (pl) pl.enabled = false;
 
-				//mouseLookScript.minimumX = hideSpotScript.GetMinX ();
-				//mouseLookScript.maximumX = hideSpotScript.GetMaxX ();
 			} else {
 				hidingScript.ExitHidingSpot ();
 
@@ -81,9 +83,9 @@ public class PlayerInteractScript : MonoBehaviour {
 					mouseLookScript.Reset ();
 				}
 
-				//mouseLookScript.minimumX = -360.0f;
-				//mouseLookScript.maximumX = 360.0f;
-				//mouseLookScript.canLoopX = true;
+				if (cc) cc.enabled = true;
+
+				if (pl) pl.enabled = true;
 			}
 		}
 	}

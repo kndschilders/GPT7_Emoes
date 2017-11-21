@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 114539084214140442}
   - component: {fileID: 114926465986883970}
   - component: {fileID: 114129956323028590}
+  - component: {fileID: 114574495151625076}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -60,7 +61,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1160417578049782}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.1, y: 0.59799993, z: 0.31}
+  m_LocalPosition: {x: 0, y: 0.6, z: 0.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4425542571251446}
@@ -73,7 +74,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1481014933187912}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.1, z: 0}
+  m_LocalPosition: {x: -60.7, y: 26.2, z: -12.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4181889507743788}
@@ -176,6 +177,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InteractDistance: 3
   CameraTransform: {fileID: 4181889507743788}
+  mouseLookScripts:
+  - {fileID: 114544769857445496}
+  - {fileID: 114831039848043696}
 --- !u!114 &114539084214140442
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -189,8 +193,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movement:
     maxForwardSpeed: 5
-    maxSidewaysSpeed: 2
-    maxBackwardsSpeed: 2
+    maxSidewaysSpeed: 5
+    maxBackwardsSpeed: 5
     maxForwardSpeedMultiplier: 2
     isSprinting: 0
     slopeSpeedMultiplier:
@@ -203,10 +207,10 @@ MonoBehaviour:
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
-        time: -10.5
-        value: 0.76250076
-        inSlope: -0.003977248
-        outSlope: -0.003977248
+        time: 0
+        value: 0.9999992
+        inSlope: -0.00011906056
+        outSlope: -0.00011906056
         tangentMode: 0
       - serializedVersion: 2
         time: 90
@@ -223,16 +227,16 @@ MonoBehaviour:
     maxFallSpeed: 20
   jumping:
     enabled: 1
-    baseHeight: 1
-    extraHeight: 4.1
+    baseHeight: 0.5
+    extraHeight: 1
     perpAmount: 0
     steepPerpAmount: 0.5
   movingPlatform:
-    enabled: 1
+    enabled: 0
     movementTransfer: 2
   sliding:
     enabled: 1
-    slidingSpeed: 15
+    slidingSpeed: 10
     sidewaysControl: 1
     speedControl: 0.4
 --- !u!114 &114544769857445496
@@ -247,12 +251,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   axes: 1
-  sensitivityX: 15
-  sensitivityY: 15
-  minimumX: -360
-  maximumX: 360
+  sensitivityX: 6
+  sensitivityY: 6
+  minimumX: -20
+  maximumX: 20
+  CanLoopX: 1
+  CanLoopY: 0
   minimumY: -60
   maximumY: 60
+--- !u!114 &114574495151625076
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1481014933187912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e63c68b48f120e45afc1ce767661e78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114831039848043696
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -265,12 +282,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   axes: 2
-  sensitivityX: 15
-  sensitivityY: 15
+  sensitivityX: 6
+  sensitivityY: 6
   minimumX: -360
   maximumX: 360
-  minimumY: -60
-  maximumY: 60
+  CanLoopX: 1
+  CanLoopY: 0
+  minimumY: -50
+  maximumY: 50
 --- !u!114 &114926465986883970
 MonoBehaviour:
   m_ObjectHideFlags: 1

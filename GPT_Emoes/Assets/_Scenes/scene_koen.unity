@@ -504,11 +504,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114129956323028590, guid: 11bc81d08bdb02b4e9718d9cdaea3b17,
-        type: 2}
-      propertyPath: mouseLookScripts.Array.size
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 4425542571251446, guid: 11bc81d08bdb02b4e9718d9cdaea3b17, type: 2}
       propertyPath: m_LocalPosition.x
       value: -60.7
@@ -540,143 +535,6 @@ Prefab:
     - target: {fileID: 4425542571251446, guid: 11bc81d08bdb02b4e9718d9cdaea3b17, type: 2}
       propertyPath: m_RootOrder
       value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 114539084214140442, guid: 11bc81d08bdb02b4e9718d9cdaea3b17,
-        type: 2}
-      propertyPath: movement.maxSidewaysSpeed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114539084214140442, guid: 11bc81d08bdb02b4e9718d9cdaea3b17,
-        type: 2}
-      propertyPath: movement.maxBackwardsSpeed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114544769857445496, guid: 11bc81d08bdb02b4e9718d9cdaea3b17,
-        type: 2}
-      propertyPath: sensitivityX
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114544769857445496, guid: 11bc81d08bdb02b4e9718d9cdaea3b17,
-        type: 2}
-      propertyPath: sensitivityY
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114831039848043696, guid: 11bc81d08bdb02b4e9718d9cdaea3b17,
-        type: 2}
-      propertyPath: sensitivityX
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114831039848043696, guid: 11bc81d08bdb02b4e9718d9cdaea3b17,
-        type: 2}
-      propertyPath: sensitivityY
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114831039848043696, guid: 11bc81d08bdb02b4e9718d9cdaea3b17,
-        type: 2}
-      propertyPath: minimumX
-      value: -360
-      objectReference: {fileID: 0}
-    - target: {fileID: 114831039848043696, guid: 11bc81d08bdb02b4e9718d9cdaea3b17,
-        type: 2}
-      propertyPath: maximumX
-      value: 360
-      objectReference: {fileID: 0}
-    - target: {fileID: 114544769857445496, guid: 11bc81d08bdb02b4e9718d9cdaea3b17,
-        type: 2}
-      propertyPath: minimumX
-      value: -20
-      objectReference: {fileID: 0}
-    - target: {fileID: 114544769857445496, guid: 11bc81d08bdb02b4e9718d9cdaea3b17,
-        type: 2}
-      propertyPath: maximumX
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 114831039848043696, guid: 11bc81d08bdb02b4e9718d9cdaea3b17,
-        type: 2}
-      propertyPath: minimumY
-      value: -50
-      objectReference: {fileID: 0}
-    - target: {fileID: 114831039848043696, guid: 11bc81d08bdb02b4e9718d9cdaea3b17,
-        type: 2}
-      propertyPath: maximumY
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 4181889507743788, guid: 11bc81d08bdb02b4e9718d9cdaea3b17, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4181889507743788, guid: 11bc81d08bdb02b4e9718d9cdaea3b17, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4181889507743788, guid: 11bc81d08bdb02b4e9718d9cdaea3b17, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114129956323028590, guid: 11bc81d08bdb02b4e9718d9cdaea3b17,
-        type: 2}
-      propertyPath: mouseLookScripts.Array.data[0]
-      value: 
-      objectReference: {fileID: 2141080691}
-    - target: {fileID: 114129956323028590, guid: 11bc81d08bdb02b4e9718d9cdaea3b17,
-        type: 2}
-      propertyPath: mouseLookScripts.Array.data[1]
-      value: 
-      objectReference: {fileID: 2006943263}
-    - target: {fileID: 114539084214140442, guid: 11bc81d08bdb02b4e9718d9cdaea3b17,
-        type: 2}
-      propertyPath: movement.slopeSpeedMultiplier.m_Curve.Array.data[1].time
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114539084214140442, guid: 11bc81d08bdb02b4e9718d9cdaea3b17,
-        type: 2}
-      propertyPath: movement.slopeSpeedMultiplier.m_Curve.Array.data[1].value
-      value: 0.9999992
-      objectReference: {fileID: 0}
-    - target: {fileID: 114539084214140442, guid: 11bc81d08bdb02b4e9718d9cdaea3b17,
-        type: 2}
-      propertyPath: movement.slopeSpeedMultiplier.m_Curve.Array.data[1].inSlope
-      value: -0.00011906056
-      objectReference: {fileID: 0}
-    - target: {fileID: 114539084214140442, guid: 11bc81d08bdb02b4e9718d9cdaea3b17,
-        type: 2}
-      propertyPath: movement.slopeSpeedMultiplier.m_Curve.Array.data[1].outSlope
-      value: -0.00011906056
-      objectReference: {fileID: 0}
-    - target: {fileID: 114539084214140442, guid: 11bc81d08bdb02b4e9718d9cdaea3b17,
-        type: 2}
-      propertyPath: movement.maxForwardSpeedMultiplier
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114539084214140442, guid: 11bc81d08bdb02b4e9718d9cdaea3b17,
-        type: 2}
-      propertyPath: sliding.enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114539084214140442, guid: 11bc81d08bdb02b4e9718d9cdaea3b17,
-        type: 2}
-      propertyPath: jumping.enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114539084214140442, guid: 11bc81d08bdb02b4e9718d9cdaea3b17,
-        type: 2}
-      propertyPath: movingPlatform.enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114539084214140442, guid: 11bc81d08bdb02b4e9718d9cdaea3b17,
-        type: 2}
-      propertyPath: sliding.slidingSpeed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114539084214140442, guid: 11bc81d08bdb02b4e9718d9cdaea3b17,
-        type: 2}
-      propertyPath: jumping.extraHeight
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114539084214140442, guid: 11bc81d08bdb02b4e9718d9cdaea3b17,
-        type: 2}
-      propertyPath: jumping.baseHeight
-      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 11bc81d08bdb02b4e9718d9cdaea3b17, type: 2}
@@ -820,12 +678,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!114 &2006943263 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114831039848043696, guid: 11bc81d08bdb02b4e9718d9cdaea3b17,
-    type: 2}
-  m_PrefabInternal: {fileID: 1440842318}
-  m_Script: {fileID: 11500000, guid: 3aee5d270e61a6848b8a0f0de92a1a76, type: 3}
 --- !u!1 &2135566313
 GameObject:
   m_ObjectHideFlags: 0
@@ -912,25 +764,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2141080683 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1481014933187912, guid: 11bc81d08bdb02b4e9718d9cdaea3b17,
-    type: 2}
-  m_PrefabInternal: {fileID: 1440842318}
---- !u!114 &2141080691 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114544769857445496, guid: 11bc81d08bdb02b4e9718d9cdaea3b17,
-    type: 2}
-  m_PrefabInternal: {fileID: 1440842318}
-  m_Script: {fileID: 11500000, guid: 3aee5d270e61a6848b8a0f0de92a1a76, type: 3}
---- !u!114 &2141080693
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2141080683}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e63c68b48f120e45afc1ce767661e78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

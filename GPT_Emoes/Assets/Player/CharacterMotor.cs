@@ -257,7 +257,8 @@ public class CharacterMotor : MonoBehaviour
 		groundNormal = Vector3.zero;
 
 		// Move our character!
-		movement.collisionFlags = controller.Move(currentMovementOffset);
+		if (controller.enabled)
+			movement.collisionFlags = controller.Move(currentMovementOffset);
 
 		movement.lastHitPoint = movement.hitPoint;
 		lastGroundNormal = groundNormal;

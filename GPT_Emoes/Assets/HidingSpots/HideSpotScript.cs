@@ -54,23 +54,23 @@ public class HideSpotScript : MonoBehaviour {
 		}
 	}
 
-	public bool canLookX = false;
-	public bool CanLookX {
+	public bool canLoopX = false;
+	public bool CanLoopX {
 		get {
-			return canLookX;
+			return canLoopX;
 		}
 		private set {
-			canLookX = value;
+			canLoopX = value;
 		}
 	}
 
-	public bool canLookY = false;
-	public bool CanLookY {
+	public bool canLoopY = false;
+	public bool CanLoopY {
 		get {
-			return canLookY;
+			return canLoopY;
 		}
 		private set {
-			canLookY = value;
+			canLoopY = value;
 		}
 	}
 }

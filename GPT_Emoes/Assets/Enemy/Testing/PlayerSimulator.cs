@@ -46,6 +46,7 @@ public class PlayerSimulator : MonoBehaviour
             Debug.LogWarning("No move points assigned!");
             return;
         }
+
         LastPos.SetValue(RandomUtil.RandomElement(MovePoints).position);
         Debug.Log("Player moved to " + LastPos.Value);
     }
