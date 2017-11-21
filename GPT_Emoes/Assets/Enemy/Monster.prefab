@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 114824297659021334}
   - component: {fileID: 114998870923801394}
   - component: {fileID: 195847087621539394}
-  - component: {fileID: 65639646735374668}
+  - component: {fileID: 65358556233222414}
   m_Layer: 0
   m_Name: Monster
   m_TagString: Untagged
@@ -69,7 +69,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1875381236685058}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.9, y: 1, z: 6.6}
+  m_LocalPosition: {x: -5, y: 1, z: -9.63}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4096385455295184}
@@ -117,18 +117,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1311862229654640}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65639646735374668
+--- !u!65 &65358556233222414
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1875381236685058}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5, y: 1, z: 15}
-  m_Center: {x: 0, y: 0, z: 8}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114076562616211670
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -156,9 +156,9 @@ MonoBehaviour:
   DistanceToSelfWeight: 1
   DistanceToPlayerWeight: 1
   ChaseUpdateTickTime: 1
-  RoamSpeed: 2
-  InvestigateSpeed: 2.5
-  ChaseSpeed: 4
+  RoamSpeed: 3
+  InvestigateSpeed: 4
+  ChaseSpeed: 5
 --- !u!114 &114824297659021334
 MonoBehaviour:
   m_ObjectHideFlags: 1
