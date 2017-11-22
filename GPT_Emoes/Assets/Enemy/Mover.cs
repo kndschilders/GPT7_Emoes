@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -36,7 +36,7 @@ public class Mover : MonoBehaviour
 
         StopCoroutine("CheckDestinationReached");
         StartCoroutine("CheckDestinationReached");
-        Debug.Log(name + " is moving to " + location);
+        //Debug.Log(name + " is moving to " + location);
     }
 
     /// <summary>

@@ -193,6 +193,8 @@ public class PlayerSimulator : MonoBehaviour
     /// <param name="hideSpot"></param>
     private void EnterHideSpot(HideSpotScript hideSpot)
     {
+        Debug.Log("Player is entering hiding spot!");
+
         // Disable movement
         agent.isStopped = true;
 
@@ -246,7 +248,7 @@ public class PlayerSimulator : MonoBehaviour
     private void RandomizeStressLevel()
     {
         StressLevel.SetValue(Random.Range(MinStressLevel, MaxStressLevel));
-        Debug.Log("Player stress level is now " + StressLevel.Value);
+        //Debug.Log("Player stress level is now " + StressLevel.Value);
     }
 
     /// <summary>

@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4096385455295184}
   - component: {fileID: 33869974470894578}
-  - component: {fileID: 135497851152333752}
   - component: {fileID: 23548381007384460}
   m_Layer: 0
   m_Name: Sphere
@@ -149,16 +148,18 @@ MonoBehaviour:
     ConstantValue: {x: 0, y: 0, z: 0}
     Variable: {fileID: 11400000, guid: 331228a8a3e562b4686ac710d61d227e, type: 2}
   Behavior: 0
+  ChaseUpdateTickTime: 0.25
+  MoveSpeedRoaming: 2
+  MoveSpeedInvestigating: 2.5
+  MoveSpeedChasing: 3
+  AlertnessIncrement: 1.5
   InvestigationAlertnessThreshold: 3
-  AlertnessReductionPerRoam: 0.25
+  AlertnessReductionPerSecond: 0.1
+  MaxAlertness: 5
   MaxDistanceToPlayer: 25
   DistanceCheckTickTime: 2
   DistanceToSelfWeight: 1
   DistanceToPlayerWeight: 1
-  ChaseUpdateTickTime: 1
-  RoamSpeed: 2.5
-  InvestigateSpeed: 2.75
-  ChaseSpeed: 3.5
 --- !u!114 &114824297659021334
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -216,18 +217,6 @@ MonoBehaviour:
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   DestinationCheckTickTime: 0.25
---- !u!135 &135497851152333752
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1311862229654640}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!195 &195847087621539394
 NavMeshAgent:
   m_ObjectHideFlags: 1
