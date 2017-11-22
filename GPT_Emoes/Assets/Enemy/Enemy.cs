@@ -54,6 +54,7 @@ public class Enemy : MonoBehaviour
     #region Private variables
     private GameObject[] RoamDestinations;
     private Mover mover;
+    [SerializeField]
     private float alertness = 0f;
     private GameObject playerObject;
     #endregion

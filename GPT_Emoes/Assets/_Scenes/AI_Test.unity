@@ -1633,6 +1633,11 @@ Prefab:
       propertyPath: SimulationTickTime
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114663190054405142, guid: 32d82a030d55b6e41ba28c7c6ac717f1,
+        type: 2}
+      propertyPath: HideExitTime
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 32d82a030d55b6e41ba28c7c6ac717f1, type: 2}
   m_IsPrefabParent: 0
@@ -1674,6 +1679,11 @@ Prefab:
     - target: {fileID: 4777467963483398, guid: c0fa0a7cf89d4a941992a54572b3e6fe, type: 2}
       propertyPath: m_RootOrder
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114076562616211670, guid: c0fa0a7cf89d4a941992a54572b3e6fe,
+        type: 2}
+      propertyPath: AlertnessReductionPerSecond
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c0fa0a7cf89d4a941992a54572b3e6fe, type: 2}
