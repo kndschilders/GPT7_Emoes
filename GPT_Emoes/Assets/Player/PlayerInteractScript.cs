@@ -2,16 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerHidingScript))]
+
 public class PlayerInteractScript : MonoBehaviour {
 
 	public float InteractDistance = 3.0f;
 	public Transform CameraTransform;
 
 	private bool isLookingAtHidingSpot = false;
-	private PlayerMovementScript movementScript;
+	private PlayerHidingScript hidingScript;
+
+	public MouseLook[] mouseLookScripts;
+
+
+	private CharacterController cc;
+	private Light pl;
 
 	void Start() {
-		movementScript = GetComponent<PlayerMovementScript> ();
+		hidingScript = GetComponent<PlayerHidingScript> ();
+
+		cc = GetComponent<CharacterController> ();
+		pl = GetComponentInChildren<Light> ();
 	}
 
 	void Update () {
@@ -48,11 +59,33 @@ public class PlayerInteractScript : MonoBehaviour {
 				if (!hideSpotScript)
 					return;
 
-				Transform playerTransform = hideSpotScript.GetPlayerLocationTransform ();
+				Transform playerTransform = hideSpotScript.PlayerLocationTransform;
 
-				movementScript.EnterHidingSpot (playerTransform);
+				hidingScript.EnterHidingSpot (playerTransform);
+
+				foreach (MouseLook mouseLookScript in mouseLookScripts) {
+					mouseLookScript.minimumX = hideSpotScript.MinXAngle;
+					mouseLookScript.maximumX = hideSpotScript.MaxXAngle;
+					mouseLookScript.minimumY = hideSpotScript.MinYAngle;
+					mouseLookScript.maximumY = hideSpotScript.MaxYAngle;
+					mouseLookScript.CanLoopX = hideSpotScript.CanLoopX;
+					mouseLookScript.CanLoopY = hideSpotScript.CanLoopY;
+				}
+
+				if (cc) cc.enabled = false;
+
+				if (pl) pl.enabled = false;
+
 			} else {
-				movementScript.ExitHidingSpot ();
+				hidingScript.ExitHidingSpot ();
+
+				foreach (MouseLook mouseLookScript in mouseLookScripts) {
+					mouseLookScript.Reset ();
+				}
+
+				if (cc) cc.enabled = true;
+
+				if (pl) pl.enabled = true;
 			}
 		}
 	}

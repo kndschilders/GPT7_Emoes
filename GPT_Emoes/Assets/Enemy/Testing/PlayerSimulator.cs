@@ -1,35 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 /// <summary>
 /// Simulates player behavior to test the AI enemy
 /// </summary>
-[RequireComponent(typeof(NavMeshAgent))]
 public class PlayerSimulator : MonoBehaviour
 {
 
     public FloatVariable StressLevel;
     public Vector3Variable LastPos;
     public GameEvent PresenceUpdate;
+    public Transform[] MovePoints;
     public float SimulationTickTime = 1f;
     [Range(0f, 1f)]
     public float MinStressLevel, MaxStressLevel;
 
-    private GameObject[] movePoints;
-    private NavMeshAgent agent;
-
-    private void Awake()
-    {
-        agent = GetComponent<NavMeshAgent>();
-        movePoints = GameObject.FindGameObjectsWithTag("Destination");
-    }
-
     private void Start()
     {
         // Start the simulation tick
-        InvokeRepeating("SimulationTick", 0f, SimulationTickTime);
+        InvokeRepeating("SimulationTick", SimulationTickTime, SimulationTickTime);
     }
 
     private void SimulationTick()
@@ -51,13 +41,14 @@ public class PlayerSimulator : MonoBehaviour
     /// </summary>
     private void Move()
     {
-        if (movePoints.Length == 0)
+        if (MovePoints.Length == 0)
         {
             Debug.LogWarning("No move points assigned!");
             return;
         }
-        agent.SetDestination(RandomUtil.RandomElement(movePoints).transform.position);
-        Debug.Log("Player moving to " + agent.destination);
+
+        LastPos.SetValue(RandomUtil.RandomElement(MovePoints).position);
+        Debug.Log("Player moved to " + LastPos.Value);
     }
 
     /// <summary>
@@ -105,7 +96,6 @@ public class PlayerSimulator : MonoBehaviour
     /// </summary>
     private void UpdatePresence()
     {
-        LastPos.Value = transform.position;
         PresenceUpdate.Raise();
         Debug.Log("Presence update triggered");
     }
