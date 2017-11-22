@@ -16,12 +16,14 @@ public class PlayerSimulator : MonoBehaviour
     [Range(0f, 1f)]
     public float MinStressLevel, MaxStressLevel;
     public float HideExitTime = 5f;
+    public float MinDistanceToHideSpot = 3f;
 
     #region Private variables
     private GameObject[] movePoints;
     private NavMeshAgent agent;
     private PlayerHidingScript playerHidingScript;
     private bool isFindingHideSpot = false;
+    private bool isInsideHidingSpot = false;
     private List<HideSpotScript> hideSpots;
     private HideSpotScript currentHidingSpot;
     private bool isBeingChased = false;
@@ -111,6 +113,9 @@ public class PlayerSimulator : MonoBehaviour
     /// </summary>
     public void StopChaseProcess()
     {
+        if (!isBeingChased)
+            return;
+
         Debug.Log("Player is no longer being chased.");
         isBeingChased = false;
     }
@@ -147,7 +152,7 @@ public class PlayerSimulator : MonoBehaviour
     /// </summary>
     private void FindHideSpot()
     {
-        if (isFindingHideSpot || hideSpots.Count == 0)
+        if (isFindingHideSpot || hideSpots.Count == 0 || isInsideHidingSpot)
             return;
 
         isFindingHideSpot = true;
@@ -182,8 +187,10 @@ public class PlayerSimulator : MonoBehaviour
         Debug.Log("Player is exiting hiding spot.");
         isFindingHideSpot = false;
         playerHidingScript.ExitHidingSpot();
+        isInsideHidingSpot = false;
 
         // Activate movement
+        GetComponent<Collider>().enabled = true;
         agent.isStopped = false;
     }
 
@@ -199,8 +206,10 @@ public class PlayerSimulator : MonoBehaviour
         agent.isStopped = true;
 
         // Hide
+        GetComponent<Collider>().enabled = false;
         playerHidingScript.EnterHidingSpot(hideSpot.PlayerLocationTransform);
         isFindingHideSpot = false;
+        isInsideHidingSpot = true;
     }
 
     /// <summary>
@@ -211,7 +220,7 @@ public class PlayerSimulator : MonoBehaviour
     private IEnumerator Hide(HideSpotScript hideSpot)
     {
         // Wait 'til close enough to hiding spot
-        while (Vector3.Distance(transform.position, hideSpot.transform.position) > 2f)
+        while (Vector3.Distance(transform.position, hideSpot.transform.position) > MinDistanceToHideSpot)
         {
             yield return null;
         }
@@ -260,23 +269,23 @@ public class PlayerSimulator : MonoBehaviour
 
         if (stress < 0.3f)
         {
-            Debug.Log("Player is calm.");
+            //Debug.Log("Player is calm.");
         }
         else if (stress < 0.5f)
         {
-            Debug.Log("Player is slightly stressed");
+            //Debug.Log("Player is slightly stressed");
             if (Random.Range(0f, 1f) < 0.2f)
                 UpdatePresence();
         }
         else if (stress < 0.8f)
         {
-            Debug.Log("Player is stressed");
+            //Debug.Log("Player is stressed");
             if (Random.Range(0f, 1f) < 0.4f)
                 UpdatePresence();
         }
         else
         {
-            Debug.Log("Player is very stressed");
+            //Debug.Log("Player is very stressed");
             if (Random.Range(0f, 1f) < 0.8f)
                 UpdatePresence();
         }
@@ -289,7 +298,7 @@ public class PlayerSimulator : MonoBehaviour
     {
         LastPos.Value = transform.position;
         PresenceUpdate.Raise();
-        Debug.Log("Presence update triggered");
+        //Debug.Log("Presence update triggered");
     }
     #endregion
 }

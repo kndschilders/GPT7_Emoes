@@ -25,6 +25,11 @@ public class Mover : MonoBehaviour
         agent.speed = speed;
     }
 
+    public bool IsMoving()
+    {
+        return agent.velocity != Vector3.zero;
+    }
+
     /// <summary>
     /// Start moving to the new location. Fires DestinationReached event when destination is reached.
     /// </summary>

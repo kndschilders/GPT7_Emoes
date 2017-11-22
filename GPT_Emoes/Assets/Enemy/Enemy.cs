@@ -20,6 +20,9 @@ public class Enemy : MonoBehaviour
     public BehaviorState Behavior;
     public float ChaseUpdateTickTime = .25f;
 
+    [Tooltip("The maximum distance the enemy will move from the LastPlayerPos when investigating")]
+    public float InvestigationRadius = 5f;
+
     #region Public variables - Movement
     public float MoveSpeedRoaming = 1f;
     public float MoveSpeedInvestigating = 1.25f;
@@ -323,12 +326,22 @@ public class Enemy : MonoBehaviour
     }
 
     /// <summary>
-    /// Move to last known player pos.
-    /// TODO: When already close to that pos, check the area.
+    /// Move to last known player pos or investigate the area around it when near enough.
     /// </summary>
     private void Investigate()
     {
-        Debug.Log(name + " is investigating.");
+        // When already close to the site of investigation, scan around the site
+        // Currently simply moves around the area (TODO: more detailed scanning behavior)
+        if (Vector3.Distance(LastPlayerPos, transform.position) < 2f)
+        {
+            Debug.Log(name + " is investigating site.");
+            Vector2 randomV2 = Random.insideUnitCircle;
+            Vector3 offset = new Vector3(randomV2.x, transform.position.y, randomV2.y) * Random.Range(2f, InvestigationRadius);
+            Move(LastPlayerPos + offset);
+            return;
+        }
+
+        Debug.Log(name + " is moving to inversigation site.");
         Move(LastPlayerPos);
     }
 
