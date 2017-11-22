@@ -1,56 +1,245 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 /// <summary>
 /// Simulates player behavior to test the AI enemy
 /// </summary>
+[RequireComponent(typeof(NavMeshAgent), typeof(PlayerHidingScript))]
 public class PlayerSimulator : MonoBehaviour
 {
-
     public FloatVariable StressLevel;
     public Vector3Variable LastPos;
     public GameEvent PresenceUpdate;
-    public Transform[] MovePoints;
     public float SimulationTickTime = 1f;
     [Range(0f, 1f)]
     public float MinStressLevel, MaxStressLevel;
+    public float HideExitTime = 5f;
+
+    #region Private variables
+    private GameObject[] movePoints;
+    private NavMeshAgent agent;
+    private PlayerHidingScript playerHidingScript;
+    private bool isFindingHideSpot = false;
+    private List<HideSpotScript> hideSpots;
+    private HideSpotScript currentHidingSpot;
+    private bool isBeingChased = false;
+    private List<Enemy> enemiesInLevel;
+    #endregion
+
+    #region Initialization
+    private void Awake()
+    {
+        // Get components
+        agent = GetComponent<NavMeshAgent>();
+        playerHidingScript = GetComponent<PlayerHidingScript>();
+
+        // Get non-components
+        movePoints = GameObject.FindGameObjectsWithTag("Destination");
+        enemiesInLevel = new List<Enemy>(FindObjectsOfType<Enemy>());
+        hideSpots = new List<HideSpotScript>(FindObjectsOfType<HideSpotScript>());
+    }
 
     private void Start()
     {
         // Start the simulation tick
-        InvokeRepeating("SimulationTick", SimulationTickTime, SimulationTickTime);
+        InvokeRepeating("SimulationTick", 0f, SimulationTickTime);
     }
+    #endregion
 
+    /// <summary>
+    /// Simulates player behavior
+    /// </summary>
     private void SimulationTick()
     {
-        // Move
-        if (Random.Range(0f, 1f) < 0.5f)
-            Move();
+        // Check if being chased
+        CheckIsBeingChased();
+
+        // Find hiding spot
+        if (isBeingChased)
+            FindHideSpot();
+
+        // Move randomly (or not) if not being chased or already moving
+        else if (Random.Range(0f, 1f) < 0.5f)
+        {
+            if (agent.velocity != Vector3.zero)
+                MoveRandomly();
+        }
 
         // Randomize stress level
         RandomizeStressLevel();
 
         // React to stress level
         ReactToStressLevel();
+    }
 
+    #region Chase behavior
+    /// <summary>
+    /// Checks if any enemies are currently chasing the player and if so, starts the chasing process
+    /// </summary>
+    private void CheckIsBeingChased()
+    {
+        foreach (Enemy enemy in enemiesInLevel)
+        {
+            if (enemy.Behavior == Enemy.BehaviorState.Chasing)
+            {
+                StartChaseProcess();
+                return;
+            }
+        }
+
+        // Stop chase process when not being chased.
+        StopChaseProcess();
+    }
+
+    /// <summary>
+    /// When not already in chasing process, finds a hiding spot
+    /// </summary>
+    public void StartChaseProcess()
+    {
+        if (isBeingChased)
+            return;
+
+        Debug.Log("Player is being chased!");
+        isBeingChased = true;
+        FindHideSpot();
+    }
+
+    /// <summary>
+    /// Stops the chasing process
+    /// </summary>
+    public void StopChaseProcess()
+    {
+        Debug.Log("Player is no longer being chased.");
+        isBeingChased = false;
+    }
+    #endregion
+
+    #region Moving
+    /// <summary>
+    /// Moves to the destination.
+    /// </summary>
+    /// <param name="destination"></param>
+    private void Move(Vector3 destination)
+    {
+        agent.SetDestination(destination);
     }
 
     /// <summary>
     /// Updates LastPos to a random entry from MovePoints
     /// </summary>
-    private void Move()
+    private void MoveRandomly()
     {
-        if (MovePoints.Length == 0)
+        if (movePoints.Length == 0)
         {
             Debug.LogWarning("No move points assigned!");
             return;
         }
+        agent.SetDestination(RandomUtil.RandomElement(movePoints).transform.position);
+        Debug.Log("Player moving to " + agent.destination);
+    }
+    #endregion
 
-        LastPos.SetValue(RandomUtil.RandomElement(MovePoints).position);
-        Debug.Log("Player moved to " + LastPos.Value);
+    #region Hiding
+    /// <summary>
+    /// Finds the nearest hiding spot, moves toward it and enters it when close enough.
+    /// </summary>
+    private void FindHideSpot()
+    {
+        if (isFindingHideSpot || hideSpots.Count == 0)
+            return;
+
+        isFindingHideSpot = true;
+        Debug.Log(name + " is finding a hiding spot!");
+
+        // Find nearest hiding spot
+        float nearestDistance = 99999999999999999999999999999999f;
+        currentHidingSpot = null;
+        foreach (HideSpotScript hideSpot in hideSpots)
+        {
+            float distance = Vector3.Distance(hideSpot.transform.position, transform.position);
+            if (distance < nearestDistance)
+            {
+                nearestDistance = distance;
+                currentHidingSpot = hideSpot;
+            }
+        }
+
+        Move(currentHidingSpot.transform.position);
+        StartCoroutine(Hide(currentHidingSpot));
     }
 
+    /// <summary>
+    /// Exits the current hiding spot
+    /// </summary>
+    private void ExitHideSpot()
+    {
+        if (currentHidingSpot == null)
+            return;
+
+        // Exit hiding spot
+        Debug.Log("Player is exiting hiding spot.");
+        isFindingHideSpot = false;
+        playerHidingScript.ExitHidingSpot();
+
+        // Activate movement
+        agent.isStopped = false;
+    }
+
+    /// <summary>
+    /// Enters the hiding spot
+    /// </summary>
+    /// <param name="hideSpot"></param>
+    private void EnterHideSpot(HideSpotScript hideSpot)
+    {
+        // Disable movement
+        agent.isStopped = true;
+
+        // Hide
+        playerHidingScript.EnterHidingSpot(hideSpot.PlayerLocationTransform);
+        isFindingHideSpot = false;
+    }
+
+    /// <summary>
+    /// Waits until close enough to the hiding spot, then enters it and starts waiting until no enemies are chasing anymore.
+    /// </summary>
+    /// <param name="hideSpot"></param>
+    /// <returns></returns>
+    private IEnumerator Hide(HideSpotScript hideSpot)
+    {
+        // Wait 'til close enough to hiding spot
+        while (Vector3.Distance(transform.position, hideSpot.transform.position) > 2f)
+        {
+            yield return null;
+        }
+
+        // Enter hiding spot
+        EnterHideSpot(hideSpot);
+
+        // Wait inside hiding spot until no enemies are chasing the player anymore.
+        StartCoroutine(WaitOutTheChase());
+    }
+
+    /// <summary>
+    /// Waits until all enemies are no longer chasing, then exits the hiding spot.
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator WaitOutTheChase()
+    {
+        // Wait until no longer being chased
+        while (isBeingChased)
+            yield return new WaitForSeconds(1);
+
+        // Wait some time (to simulate 'making sure')
+        yield return new WaitForSeconds(HideExitTime);
+
+        // Exit hiding spot
+        ExitHideSpot();
+    }
+    #endregion
+
+    #region Stress behavior
     /// <summary>
     /// Randomize stress level, picking a value between MinStressLevel and MaxStressLevel
     /// </summary>
@@ -96,7 +285,9 @@ public class PlayerSimulator : MonoBehaviour
     /// </summary>
     private void UpdatePresence()
     {
+        LastPos.Value = transform.position;
         PresenceUpdate.Raise();
         Debug.Log("Presence update triggered");
     }
+    #endregion
 }
