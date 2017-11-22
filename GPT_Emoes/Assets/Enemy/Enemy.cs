@@ -286,6 +286,7 @@ public class Enemy : MonoBehaviour
             return;
         }
 
+        PlayerSimulator.IsBeingChased = true;
         Move(playerObject.transform.position);
         Debug.Log(name + " is chasing!");
     }

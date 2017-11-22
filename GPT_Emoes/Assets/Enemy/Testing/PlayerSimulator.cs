@@ -9,7 +9,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class PlayerSimulator : MonoBehaviour
 {
-
+    public static bool IsBeingChased = false;
     public FloatVariable StressLevel;
     public Vector3Variable LastPos;
     public GameEvent PresenceUpdate;
@@ -19,6 +19,8 @@ public class PlayerSimulator : MonoBehaviour
 
     private GameObject[] movePoints;
     private NavMeshAgent agent;
+    private bool isFindingHideSpot = false;
+    private HideSpotScript hideSpot;
 
     private void Awake()
     {
@@ -34,8 +36,11 @@ public class PlayerSimulator : MonoBehaviour
 
     private void SimulationTick()
     {
+        // Find hiding spot
+        if (IsBeingChased)
+            FindHideSpot();
         // Move
-        if (Random.Range(0f, 1f) < 0.5f)
+        else if (Random.Range(0f, 1f) < 0.5f)
             Move();
 
         // Randomize stress level
@@ -58,6 +63,18 @@ public class PlayerSimulator : MonoBehaviour
         }
         agent.SetDestination(RandomUtil.RandomElement(movePoints).transform.position);
         Debug.Log("Player moving to " + agent.destination);
+    }
+
+    private void FindHideSpot()
+    {
+        if (isFindingHideSpot)
+            return;
+
+    }
+
+    private void ExitHideSpot()
+    {
+
     }
 
     /// <summary>
