@@ -24,10 +24,10 @@ GameObject:
   - component: {fileID: 81212187351292050}
   - component: {fileID: 114831039848043696}
   - component: {fileID: 114546139006589504}
-  - component: {fileID: 114855938913304712}
-  - component: {fileID: 114411343361852748}
   - component: {fileID: 114757245690307660}
   - component: {fileID: 114410396444032574}
+  - component: {fileID: 114411343361852748}
+  - component: {fileID: 114855938913304712}
   m_Layer: 9
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -52,7 +52,6 @@ GameObject:
   - component: {fileID: 114926465986883970}
   - component: {fileID: 114129956323028590}
   - component: {fileID: 114574495151625076}
-  - component: {fileID: 114618806219027036}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -210,8 +209,8 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2
-  m_Range: 35
+  m_Intensity: 1.5
+  m_Range: 20
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -378,17 +377,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CursorIsLocked: 1
 --- !u!114 &114574495151625076
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1481014933187912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e63c68b48f120e45afc1ce767661e78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114618806219027036
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
