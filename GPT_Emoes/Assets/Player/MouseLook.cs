@@ -39,6 +39,9 @@ public class MouseLook : MonoBehaviour {
 	private bool defaultCanLoopY;
 
 	void Update () {
+        if (CursorLock.instance.CursorIsLocked == false)
+            return;
+
 		if (axes == RotationAxes.MouseXAndY) {
 			rotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensitivityX;
 
