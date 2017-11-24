@@ -2195,8 +2195,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 5, y: 1, z: 15}
-  m_Center: {x: 0, y: 0, z: 8}
+  m_Size: {x: 20, y: 1, z: 20}
+  m_Center: {x: 0, y: 0, z: 12.5}
 --- !u!95 &95029483301217888
 Animator:
   serializedVersion: 3
@@ -2237,7 +2237,7 @@ MonoBehaviour:
   Behavior: 0
   ChaseUpdateTickTime: 0.25
   MinDistanceToInvestigationSite: 5
-  InvestigationRadius: 10
+  InvestigationRadius: 15
   MoveSpeedRoaming: 1.5
   MoveSpeedInvestigating: 1.75
   MoveSpeedChasing: 4
@@ -2309,6 +2309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9892286d82884cc43bbaa0a121301d3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Time: 1
   ToDo:
     m_PersistentCalls:
       m_Calls:
