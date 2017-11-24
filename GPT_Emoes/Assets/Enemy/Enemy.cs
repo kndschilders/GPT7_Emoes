@@ -103,7 +103,7 @@ public class Enemy : MonoBehaviour
         Debug.Log("Something entered " + name + "'s vision");
 
         // Only check for player
-        if (!other.gameObject == playerObject)
+        if (other.gameObject != playerObject)
         {
             Debug.Log("It's not the player...");
             return;

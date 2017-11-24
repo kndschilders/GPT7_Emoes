@@ -1000,6 +1000,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4777467963483398}
+  - component: {fileID: 114406562555417152}
   - component: {fileID: 114076562616211670}
   - component: {fileID: 114998870923801394}
   - component: {fileID: 114824297659021334}
@@ -2192,7 +2193,7 @@ BoxCollider:
   m_GameObject: {fileID: 1875381236685058}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 5, y: 1, z: 15}
   m_Center: {x: 0, y: 0, z: 8}
@@ -2208,7 +2209,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 15ee8007838555946873eab92bb1dcfc, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -2235,6 +2236,7 @@ MonoBehaviour:
     Variable: {fileID: 11400000, guid: 331228a8a3e562b4686ac710d61d227e, type: 2}
   Behavior: 0
   ChaseUpdateTickTime: 0.25
+  MinDistanceToInvestigationSite: 5
   InvestigationRadius: 10
   MoveSpeedRoaming: 1.5
   MoveSpeedInvestigating: 1.75
@@ -2296,6 +2298,33 @@ MonoBehaviour:
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   alertness: 0
+--- !u!114 &114406562555417152
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1875381236685058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9892286d82884cc43bbaa0a121301d3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ToDo:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 65358556233222414}
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &114550618834140280
 MonoBehaviour:
   m_ObjectHideFlags: 1
