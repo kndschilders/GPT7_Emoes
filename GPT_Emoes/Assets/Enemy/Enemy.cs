@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Mover), typeof(BoxCollider))]
 public class Enemy : MonoBehaviour
@@ -15,10 +16,12 @@ public class Enemy : MonoBehaviour
 
     #region Public variables
 
+    public EnemyAnimator EnemyAnimator;
     public FloatReference PlayerStressLevel;
     public Vector3Reference LastPlayerPos;
     public BehaviorState Behavior;
     public float ChaseUpdateTickTime = .25f;
+    public float MinDistanceToInvestigationSite = 5f;
 
     [Tooltip("The maximum distance the enemy will move from the LastPlayerPos when investigating")]
     public float InvestigationRadius = 5f;
@@ -48,6 +51,13 @@ public class Enemy : MonoBehaviour
     public float DistanceToSelfWeight = 1f;
     [Tooltip("The weight of the distance between potential destinations and the player when deciding the optimal teleport location (when out of range)")]
     public float DistanceToPlayerWeight = 1f;
+    #endregion
+
+    #region Public variables - Events
+    public UnityEvent OnStartRoaming;
+    public UnityEvent OnStartInvestigating;
+    public UnityEvent OnStartChasing;
+
     #endregion
     #endregion
 
@@ -333,7 +343,7 @@ public class Enemy : MonoBehaviour
     {
         // When already close to the site of investigation, scan around the site
         // Currently simply moves around the area (TODO: more detailed scanning behavior)
-        if (Vector3.Distance(LastPlayerPos, transform.position) < 2f)
+        if (Vector3.Distance(LastPlayerPos, transform.position) < MinDistanceToInvestigationSite)
         {
             Debug.Log(name + " is investigating site.");
             Vector2 randomV2 = Random.insideUnitCircle;
@@ -357,17 +367,26 @@ public class Enemy : MonoBehaviour
 
         switch (Behavior)
         {
+            // Roaming
             case BehaviorState.Roaming:
+                // Update behavior
                 mover.SetMoveSpeed(MoveSpeedRoaming);
                 Roam();
+                OnStartRoaming.Invoke();
                 break;
+            // Investigating
             case BehaviorState.Investigating:
+                // Update behavior
                 mover.SetMoveSpeed(MoveSpeedInvestigating);
                 Investigate();
+                OnStartInvestigating.Invoke();
                 break;
+            // Chasing
             case BehaviorState.Chasing:
+                // Update behavior
                 mover.SetMoveSpeed(MoveSpeedChasing);
                 InvokeRepeating("Chase", 0, ChaseUpdateTickTime);
+                OnStartChasing.Invoke();
                 Debug.Log(name + " is chasing!");
                 break;
         }
@@ -404,10 +423,10 @@ public class Enemy : MonoBehaviour
         switch (Behavior)
         {
             case BehaviorState.Roaming:
-                Roam();
+                Invoke("Roam", 2f);
                 break;
             case BehaviorState.Investigating:
-                UpdateBehaviorState(BehaviorState.Roaming);
+                //UpdateBehaviorState(BehaviorState.Roaming);
                 break;
             case BehaviorState.Chasing:
 

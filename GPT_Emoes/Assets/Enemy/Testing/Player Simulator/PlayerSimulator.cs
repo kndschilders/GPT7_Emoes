@@ -66,7 +66,7 @@ public class PlayerSimulator : MonoBehaviour
         // Move randomly (or not) if not being chased or already moving
         else if (Random.Range(0f, 1f) < 0.5f)
         {
-            if (!isMovingRandomly)
+            if (!isMovingRandomly && !isFindingHideSpot && !isInsideHidingSpot)
                 MoveRandomly();
         }
 
@@ -138,9 +138,9 @@ public class PlayerSimulator : MonoBehaviour
     /// </summary>
     private void MoveRandomly()
     {
-        if (movePoints.Length == 0)
+        if (movePoints.Length == 0 || agent.enabled == false)
         {
-            Debug.LogWarning("No move points assigned!");
+            Debug.LogWarning("Can't move.");
             return;
         }
         agent.SetDestination(RandomUtil.RandomElement(movePoints).transform.position);
@@ -188,13 +188,13 @@ public class PlayerSimulator : MonoBehaviour
 
         // Exit hiding spot
         Debug.Log("Player is exiting hiding spot.");
-        isFindingHideSpot = false;
         playerHidingScript.ExitHidingSpot();
-        isInsideHidingSpot = false;
 
         // Activate movement
         GetComponent<Collider>().enabled = true;
+        agent.enabled = true;
         agent.isStopped = false;
+        isInsideHidingSpot = false;
     }
 
     /// <summary>
@@ -207,6 +207,7 @@ public class PlayerSimulator : MonoBehaviour
 
         // Disable movement
         agent.isStopped = true;
+        agent.enabled = false;
 
         // Hide
         GetComponent<Collider>().enabled = false;
