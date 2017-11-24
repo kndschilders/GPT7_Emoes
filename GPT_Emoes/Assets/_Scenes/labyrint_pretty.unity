@@ -40638,6 +40638,50 @@ Transform:
 Transform:
   m_PrefabParentObject: {fileID: 400008, guid: f696a81957e80df439600b80ea8667ec, type: 2}
   m_PrefabInternal: {fileID: 229808596}
+--- !u!1 &1357777620
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1357777622}
+  - component: {fileID: 1357777621}
+  m_Layer: 0
+  m_Name: Uniduino
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1357777621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1357777620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee80ba8b4c5bd46839658bcfeb780748, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PortName: COM4
+  Baud: 57600
+  RebootDelay: 3
+  AutoConnect: 1
+--- !u!4 &1357777622
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1357777620}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.4413433, y: 7.225335, z: 2.4563184}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1358525515
 Prefab:
   m_ObjectHideFlags: 0
@@ -58714,6 +58758,8 @@ GameObject:
   - component: {fileID: 2054085276}
   - component: {fileID: 2054085275}
   - component: {fileID: 2054085274}
+  - component: {fileID: 2054085284}
+  - component: {fileID: 2054085285}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -58934,6 +58980,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 16.192001, z: 0}
+--- !u!114 &2054085284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2054085273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30168f16d17d07542a22d0e6952ec370, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stresslevel: {fileID: 11400000, guid: 27bbe881bfd2d1c45bc7f32d912e10a7, type: 2}
+  arduino: {fileID: 1357777621}
+  pin: 0
+  pinValue: 0
+--- !u!114 &2054085285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2054085273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 134de05342f45e44598aa9b8b8dfc527, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stressLevel: {fileID: 11400000, guid: 27bbe881bfd2d1c45bc7f32d912e10a7, type: 2}
 --- !u!4 &2054368026 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: ee99b3ef14f3afd4f926938702ec25f0, type: 2}
