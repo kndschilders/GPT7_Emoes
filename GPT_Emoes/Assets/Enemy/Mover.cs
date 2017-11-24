@@ -8,8 +8,9 @@ using UnityEngine.Events;
 public class Mover : MonoBehaviour
 {
     public float DestinationAccuracy = 1f;
-    public UnityEvent OnDestinationReached;
     public float DestinationCheckTickTime = 0.25f;
+    public UnityEvent OnDestinationReached;
+    public UnityEvent OnStartMoving;
 
     private bool destinationReached = false;
     private NavMeshAgent agent;
@@ -30,6 +31,11 @@ public class Mover : MonoBehaviour
         return agent.velocity != Vector3.zero;
     }
 
+    public Vector3 GetVelocityNormalized()
+    {
+        return agent.velocity.normalized;
+    }
+
     /// <summary>
     /// Start moving to the new location. Fires DestinationReached event when destination is reached.
     /// </summary>
@@ -38,6 +44,7 @@ public class Mover : MonoBehaviour
     {
         moveDestination = location;
         agent.SetDestination(moveDestination);
+        OnStartMoving.Invoke();
 
         StopCoroutine("CheckDestinationReached");
         StartCoroutine("CheckDestinationReached");
