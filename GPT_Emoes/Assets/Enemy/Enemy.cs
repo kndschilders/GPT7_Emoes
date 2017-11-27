@@ -1,7 +1,8 @@
-﻿
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Mover), typeof(BoxCollider))]
 public class Enemy : MonoBehaviour
@@ -13,25 +14,67 @@ public class Enemy : MonoBehaviour
         Chasing
     }
 
+    #region Public variables
+
+    #region Public variables - Catching player
+    public GameEvent GameOverEvent;
+    public float CatchDistance = 5f;
+    #endregion
+
+    public EnemyAnimator EnemyAnimator;
     public FloatReference PlayerStressLevel;
     public Vector3Reference LastPlayerPos;
     public BehaviorState Behavior;
-    public int InvestigationAlertnessThreshold = 3;
-    public float AlertnessReductionPerRoam = 0.25f;
-    public float MaxDistanceToPlayer = 100f;
-    public float DistanceCheckTickTime = 2f;
-    public float DistanceToSelfWeight = 1f;
-    public float DistanceToPlayerWeight = 1f;
     public float ChaseUpdateTickTime = .25f;
-    public float RoamSpeed = 1f;
-    public float InvestigateSpeed = 1.25f;
-    public float ChaseSpeed = 2f;
+    public float MinDistanceToInvestigationSite = 5f;
 
+    [Tooltip("The maximum distance the enemy will move from the LastPlayerPos when investigating")]
+    public float InvestigationRadius = 5f;
+
+    #region Public variables - Movement
+    public float MoveSpeedRoaming = 1f;
+    public float MoveSpeedInvestigating = 1.25f;
+    public float MoveSpeedChasing = 2f;
+    #endregion
+
+    #region Public variables - Alertness
+    [Tooltip("The amount by which the alertness level will be increased when the player sends out a presence update.")]
+    public float AlertnessIncrement = 1f;
+    [Tooltip("The level of alertness this enemy has to reach before switching to investigation mode.")]
+    public float InvestigationAlertnessThreshold = 3;
+    [Tooltip("The amount by which the alertness level will be reduced per second")]
+    public float AlertnessReductionPerSecond = 0.25f;
+    public float MaxAlertness = 5f;
+    #endregion
+
+    #region Public variables - Distance maintenance
+    [Tooltip("When the distance between the player and this enemy exceeds this, this enemy will be teleported closer toward the player")]
+    public float MaxDistanceToPlayer = 100f;
+    [Tooltip("Time between distance maintenance checks.")]
+    public float DistanceCheckTickTime = 2f;
+    [Tooltip("The weight of the distance between potential destinations and this enemy when deciding the optimal teleport location (when out of range)")]
+    public float DistanceToSelfWeight = 1f;
+    [Tooltip("The weight of the distance between potential destinations and the player when deciding the optimal teleport location (when out of range)")]
+    public float DistanceToPlayerWeight = 1f;
+    #endregion
+
+    #region Public variables - Events
+    public UnityEvent OnStartRoaming;
+    public UnityEvent OnStartInvestigating;
+    public UnityEvent OnStartChasing;
+
+    #endregion
+    #endregion
+
+    #region Private variables
     private GameObject[] RoamDestinations;
     private Mover mover;
+    [SerializeField]
     private float alertness = 0f;
     private GameObject playerObject;
+    #endregion
 
+    #region Initializaiton
     private void Awake()
     {
         mover = GetComponent<Mover>();
@@ -50,8 +93,13 @@ public class Enemy : MonoBehaviour
         UpdateBehaviorState(Behavior);
 
         // Start the distance check cycle
-        InvokeRepeating("MaintainDistanceToPlayer", DistanceCheckTickTime, DistanceCheckTickTime);
+        InvokeRepeating("DistanceCheckTick", DistanceCheckTickTime, DistanceCheckTickTime);
+
+        // Start the alertness reduction cycle
+        InvokeRepeating("AlertnessReductionTick", 1, 1);
     }
+
+    #endregion
 
     #region Player detection
     private void OnTriggerEnter(Collider other)
@@ -60,7 +108,7 @@ public class Enemy : MonoBehaviour
         Debug.Log("Something entered " + name + "'s vision");
 
         // Only check for player
-        if (!other.gameObject == playerObject)
+        if (other.gameObject != playerObject)
         {
             Debug.Log("It's not the player...");
             return;
@@ -85,13 +133,18 @@ public class Enemy : MonoBehaviour
             UpdateBehaviorState(BehaviorState.Investigating);
     }
 
+    /// <summary>
+    /// Check if the player is within the enemy's line of sight.
+    /// </summary>
+    /// <returns></returns>
     private bool PlayerInLOS()
     {
         // Check if player in LOS.
         RaycastHit hit;
         Ray ray = new Ray(transform.position, (playerObject.transform.position - transform.position).normalized);
         Physics.Raycast(ray, out hit);
-        return hit.collider != null && (hit.collider.gameObject == playerObject);
+        bool inRange = hit.collider != null && (hit.collider.gameObject == playerObject);
+        return inRange;
     }
     #endregion
 
@@ -99,7 +152,7 @@ public class Enemy : MonoBehaviour
     /// <summary>
     /// Checks if the path distance to the player exceeds the limit and if so, teleports to a more suitable location.
     /// </summary>
-    private void MaintainDistanceToPlayer()
+    private void DistanceCheckTick()
     {
         if (playerObject == null)
             return;
@@ -223,32 +276,37 @@ public class Enemy : MonoBehaviour
 
     #region Alertness
     /// <summary>
-    /// Increases alertness level. When threshold reached, switches behavior to Investigating.
+    /// Changes alertness level by amount.
+    /// Updates behavior based on current behavior and alertness level.
     /// </summary>
-    private void RaiseAlertnessLevel(float amount = 1f)
+    /// <param name="amount"></param>
+    private void ChangeAlertnessLevel(float amount = 1f)
     {
-        alertness += amount;
-        Debug.Log(name + " alertness has been raised to " + alertness);
+        // Maintain max alertness when chasing
+        if (Behavior == BehaviorState.Chasing)
+        {
+            alertness = MaxAlertness;
+            return;
+        }
 
-        if (alertness >= InvestigationAlertnessThreshold)
+        // Update alertness
+        alertness = Mathf.Clamp(alertness + amount, 0, MaxAlertness);
+        //Debug.Log(name + " alertness has been changed to " + alertness);
+
+        // Start investigating when threshold reached and not already investigating 
+        if (alertness >= InvestigationAlertnessThreshold && Behavior != BehaviorState.Investigating)
             UpdateBehaviorState(BehaviorState.Investigating);
+        // Switch back to roaming when threshold not reached
+        else if (alertness < InvestigationAlertnessThreshold && Behavior != BehaviorState.Roaming)
+            UpdateBehaviorState(BehaviorState.Roaming);
     }
 
     /// <summary>
-    /// Lowers alertness level to a minimum of 0.
-    /// When threshold passed, switches behavior to roaming.
+    /// Reduces alertness level by AlertnessReductionPerSecond
     /// </summary>
-    private void LowerAlertnessLevel(float amount = 1f)
+    private void AlertnessReductionTick()
     {
-        if (alertness > 0)
-            alertness -= amount;
-        else
-            return;
-
-        Debug.Log(name + " alertness has been lowered to " + alertness);
-
-        if (alertness < InvestigationAlertnessThreshold && Behavior != BehaviorState.Roaming)
-            UpdateBehaviorState(BehaviorState.Roaming);
+        ChangeAlertnessLevel(-AlertnessReductionPerSecond);
     }
     #endregion
 
@@ -268,11 +326,11 @@ public class Enemy : MonoBehaviour
     {
         Debug.Log(name + " is roaming.");
         Move(RandomUtil.RandomElement(RoamDestinations).transform.position);
-        LowerAlertnessLevel(AlertnessReductionPerRoam);
     }
 
     /// <summary>
     /// When called whilst chase behavior is active, start moving towards player location until switched to another behavior.
+    /// When player is within catch distance, raises game-over event.
     /// </summary>
     private void Chase()
     {
@@ -285,18 +343,34 @@ public class Enemy : MonoBehaviour
             UpdateBehaviorState(BehaviorState.Investigating);
             return;
         }
+        // Raise game-over event when player is within catch distance
+        else if (Vector3.Distance(transform.position, playerObject.transform.position) <= CatchDistance)
+        {
+            GameOverEvent.Raise();
+            return;
+        }
 
+        // Move to player
         Move(playerObject.transform.position);
-        Debug.Log(name + " is chasing!");
     }
 
     /// <summary>
-    /// Move to last known player pos.
-    /// TODO: When already close to that pos, check the area.
+    /// Move to last known player pos or investigate the area around it when near enough.
     /// </summary>
     private void Investigate()
     {
-        Debug.Log(name + " is investigating.");
+        // When already close to the site of investigation, scan around the site
+        // Currently simply moves around the area (TODO: more detailed scanning behavior)
+        if (Vector3.Distance(LastPlayerPos, transform.position) < MinDistanceToInvestigationSite)
+        {
+            Debug.Log(name + " is investigating site.");
+            Vector2 randomV2 = Random.insideUnitCircle;
+            Vector3 offset = new Vector3(randomV2.x, transform.position.y, randomV2.y) * Random.Range(2f, InvestigationRadius);
+            Move(LastPlayerPos + offset);
+            return;
+        }
+
+        Debug.Log(name + " is moving to inversigation site.");
         Move(LastPlayerPos);
     }
 
@@ -311,17 +385,27 @@ public class Enemy : MonoBehaviour
 
         switch (Behavior)
         {
+            // Roaming
             case BehaviorState.Roaming:
-                mover.SetMoveSpeed(RoamSpeed);
+                // Update behavior
+                mover.SetMoveSpeed(MoveSpeedRoaming);
                 Roam();
+                OnStartRoaming.Invoke();
                 break;
+            // Investigating
             case BehaviorState.Investigating:
-                mover.SetMoveSpeed(InvestigateSpeed);
+                // Update behavior
+                mover.SetMoveSpeed(MoveSpeedInvestigating);
                 Investigate();
+                OnStartInvestigating.Invoke();
                 break;
+            // Chasing
             case BehaviorState.Chasing:
-                mover.SetMoveSpeed(ChaseSpeed);
+                // Update behavior
+                mover.SetMoveSpeed(MoveSpeedChasing);
                 InvokeRepeating("Chase", 0, ChaseUpdateTickTime);
+                OnStartChasing.Invoke();
+                Debug.Log(name + " is chasing!");
                 break;
         }
     }
@@ -334,7 +418,7 @@ public class Enemy : MonoBehaviour
         switch (Behavior)
         {
             case BehaviorState.Roaming:
-                RaiseAlertnessLevel();
+                ChangeAlertnessLevel();
                 break;
             case BehaviorState.Investigating:
                 Investigate();
@@ -357,10 +441,10 @@ public class Enemy : MonoBehaviour
         switch (Behavior)
         {
             case BehaviorState.Roaming:
-                Roam();
+                Invoke("Roam", 2f);
                 break;
             case BehaviorState.Investigating:
-                UpdateBehaviorState(BehaviorState.Roaming);
+                //UpdateBehaviorState(BehaviorState.Roaming);
                 break;
             case BehaviorState.Chasing:
 

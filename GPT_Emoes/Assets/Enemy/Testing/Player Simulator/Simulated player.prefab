@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 136074452592222942}
   - component: {fileID: 23596548888446528}
   - component: {fileID: 114663190054405142}
+  - component: {fileID: 114488566024676660}
   - component: {fileID: 195545627273291720}
   - component: {fileID: 54830133466755316}
   m_Layer: 0
@@ -39,7 +40,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1469548160630776}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.54, y: 1.2, z: -15.79}
+  m_LocalPosition: {x: 6.46, y: 1.2, z: -2.11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -101,6 +102,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &114488566024676660
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1469548160630776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e63c68b48f120e45afc1ce767661e78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114663190054405142
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -118,6 +130,7 @@ MonoBehaviour:
   SimulationTickTime: 5
   MinStressLevel: 0.704
   MaxStressLevel: 1
+  HideTime: 5
 --- !u!136 &136074452592222942
 CapsuleCollider:
   m_ObjectHideFlags: 1
