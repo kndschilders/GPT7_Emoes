@@ -19,6 +19,7 @@ public class Trigger : MonoBehaviour
     private void Awake()
     {
         trigger = GetComponent<BoxCollider>();
+        tags = new List<string>(TagsToCheck);
         UpdateTrigger();
     }
 
@@ -31,6 +32,9 @@ public class Trigger : MonoBehaviour
 
     private void UpdateTrigger()
     {
+        if (TagsToCheck == null)
+            return;
+
         trigger.isTrigger = true;
         // Only update internal tags when external tags are updated.
         if (TagsToCheck.Length != 0 && TagsToCheck.Length != tags.Intersect(TagsToCheck).ToArray().Count())
@@ -43,12 +47,19 @@ public class Trigger : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (tags.Contains(other.tag))
+        {
             OnEnter.Invoke();
+            Debug.Log(name + ": " + other.tag + " entered!");
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (tags.Contains(other.tag))
+        {
             OnExit.Invoke();
+            Debug.Log(name + ": " + other.tag + " exited!");
+
+        }
     }
 }

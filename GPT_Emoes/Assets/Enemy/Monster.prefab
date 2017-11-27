@@ -1911,7 +1911,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1875381236685058}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -39.55245, y: 1, z: -13.8}
+  m_LocalPosition: {x: 53.967957, y: 63.50369, z: 0.056015015}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4668787919835084}
@@ -2239,15 +2239,15 @@ MonoBehaviour:
   Behavior: 0
   ChaseUpdateTickTime: 0.25
   MinDistanceToInvestigationSite: 5
-  InvestigationRadius: 15
+  InvestigationRadius: 20
   MoveSpeedRoaming: 1.5
-  MoveSpeedInvestigating: 1.75
+  MoveSpeedInvestigating: 2.25
   MoveSpeedChasing: 4
   AlertnessIncrement: 1.5
   InvestigationAlertnessThreshold: 3
   AlertnessReductionPerSecond: 0.5
   MaxAlertness: 5
-  MaxDistanceToPlayer: 25
+  MaxDistanceToPlayer: 100
   DistanceCheckTickTime: 2
   DistanceToSelfWeight: 1
   DistanceToPlayerWeight: 1
