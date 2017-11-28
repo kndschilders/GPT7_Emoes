@@ -4,4 +4,19 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/_Scenes/main_menu.unity
+    guid: 6db42dad8d69f7740bc303f74245d79e
+  - enabled: 1
+    path: Assets/_Scenes/labyrint_pretty.unity
+    guid: e04a10eb62e69e249aed50811ade879b
+  - enabled: 1
+    path: Assets/_Scenes/JacksPlayground.unity
+    guid: e5e9447e7e83f4b46b623b1d5402d1e1
+  - enabled: 1
+    path: Assets/_Scenes/game_over.unity
+    guid: e63c9218e43b3984b86c65b173067bdd
+  - enabled: 1
+    path: Assets/_Scenes/game_won.unity
+    guid: a452d05178ebce946bc7752302225cca
