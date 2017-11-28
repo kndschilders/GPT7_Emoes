@@ -210,24 +210,33 @@ public class CharacterMotor : MonoBehaviour
 
 	private CharacterController controller;
 
+	private PlayerCrouchScript crouchScript;
+
 	void Awake()
 	{
 		controller = GetComponent<CharacterController>();
+		crouchScript = GetComponent<PlayerCrouchScript> ();
 		tr = transform;
 	}
 
 	private void UpdateFunction()
 	{
-		// Set sprinting enabled or disabled.
-		if (Input.GetKey (KeyCode.LeftControl))
-			movement.PlayerMovementState = CharacterMotorMovement.MovementState.Crouching;
-		else if (Input.GetKey (KeyCode.C))
-			movement.PlayerMovementState = CharacterMotorMovement.MovementState.Crawling;
-		else if (Input.GetKey (KeyCode.LeftShift))
+		if (Input.GetKey (KeyCode.LeftShift)) {
 			movement.PlayerMovementState = CharacterMotorMovement.MovementState.Spriting;
-		else
-			movement.PlayerMovementState = CharacterMotorMovement.MovementState.Moving;
-		
+		} else {
+			switch (crouchScript.State) {
+				case PlayerCrouchScript.CrouchState.Crawl:
+					movement.PlayerMovementState = CharacterMotorMovement.MovementState.Crawling;
+					break;
+				case PlayerCrouchScript.CrouchState.Crouch:
+					movement.PlayerMovementState = CharacterMotorMovement.MovementState.Crouching;
+					break;
+				default:
+					movement.PlayerMovementState = CharacterMotorMovement.MovementState.Moving;
+					break;
+			}
+		}
+
 		// We copy the actual velocity into a temporary variable that we can manipulate.
 		Vector3 velocity = movement.velocity;
 

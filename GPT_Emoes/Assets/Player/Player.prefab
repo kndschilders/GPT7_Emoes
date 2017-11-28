@@ -263,7 +263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef85b6c1acbbfbc4da59a9c606a17cc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CrouchCamY: -0.4
+  CrouchCamY: -0.2
   CrouchPlayerHeight: 1.2
   CrawlCamY: -0.6
   CrawlPlayerHeight: 1
