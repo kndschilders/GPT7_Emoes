@@ -173,14 +173,18 @@ namespace Uniduino
         /// </summary>
         protected void Open()
         {
-            _serialPort.Open();
-			
-			if (_serialPort.IsOpen)
-			{
-	            Thread.Sleep(delay);
-				
-			
-			}
+            try {
+                _serialPort.Open();
+
+                if (_serialPort.IsOpen)
+                {
+                    Thread.Sleep(delay);
+                }
+            }catch(Exception ex)
+            {
+                print("No arduino connected");
+                Close();
+            }
         }
 
         /// <summary>
@@ -290,17 +294,20 @@ namespace Uniduino
             command[1] = (byte)enable;
             _serialPort.Write(command, 0, 2);        
 		}
-		
-		/// <summary>
-		/// Request the device to report the version of the loaded Firmata firmware. 
-		/// The VersionDataReceived event is fired when version data is received.
-		/// </summary>
-		public void reportVersion()
-		{		
-			byte[] command = new byte[1];
-			command[0] = (byte)REPORT_VERSION;
-            _serialPort.Write(command, 0, 1);            
-		}
+
+        /// <summary>
+        /// Request the device to report the version of the loaded Firmata firmware. 
+        /// The VersionDataReceived event is fired when version data is received.
+        /// </summary>
+        public void reportVersion()
+        {
+            if (_serialPort.IsOpen)
+            {
+                byte[] command = new byte[1];
+                command[0] = (byte)REPORT_VERSION;
+                _serialPort.Write(command, 0, 1);
+            }
+        }
 		
 		
         /// <summary>
@@ -332,11 +339,14 @@ namespace Uniduino
         /// <param name="value">PWM frequency from 0 (always off) to 255 (always on).</param>
         public void analogWrite(int pin, int value)
         {
-            byte[] message = new byte[3];
-            message[0] = (byte)(ANALOG_MESSAGE | (pin & 0x0F));
-            message[1] = (byte)(value & 0x7F);
-            message[2] = (byte)(value >> 7);
-            _serialPort.Write(message, 0, 3);
+            if (_serialPort.IsOpen)
+            {
+                byte[] message = new byte[3];
+                message[0] = (byte)(ANALOG_MESSAGE | (pin & 0x0F));
+                message[1] = (byte)(value & 0x7F);
+                message[2] = (byte)(value >> 7);
+                _serialPort.Write(message, 0, 3);
+            }
         }
 				
 		
