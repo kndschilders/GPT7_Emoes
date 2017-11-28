@@ -28,8 +28,8 @@ public class MouseLook : MonoBehaviour {
 	public bool CanLoopY = false;
 	public float minimumY = -60F;
 	public float maximumY = 60F;
-	float rotationY = 0F;
-	float rotationX = 0F;
+	public float RotationY = 0F;
+	public float RotationX = 0F;
 
 	private float defaultMinX;
 	private float defaultMaxX;
@@ -43,24 +43,24 @@ public class MouseLook : MonoBehaviour {
             return;
 
 		if (axes == RotationAxes.MouseXAndY) {
-			rotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensitivityX;
+			RotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensitivityX;
 
-			rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
-			rotationY = Mathf.Clamp (rotationY, minimumY, maximumY);
+			RotationY += Input.GetAxis("Mouse Y") * sensitivityY;
+			RotationY = Mathf.Clamp (RotationY, minimumY, maximumY);
 
-			transform.localEulerAngles = new Vector3(-rotationY, rotationX, 0);
+			transform.localEulerAngles = new Vector3(-RotationY, RotationX, 0);
 		} else if (axes == RotationAxes.MouseX) {
-			rotationX += Input.GetAxis("Mouse X") * sensitivityX;
+			RotationX += Input.GetAxis("Mouse X") * sensitivityX;
 
-			if (!CanLoopX) rotationX = Mathf.Clamp (rotationX, minimumX, maximumX);
+			if (!CanLoopX) RotationX = Mathf.Clamp (RotationX, minimumX, maximumX);
 
-			transform.localEulerAngles = new Vector3 (transform.localEulerAngles.x, rotationX, 0);
+			transform.localEulerAngles = new Vector3 (transform.localEulerAngles.x, RotationX, 0);
 		} else {
-			rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
+			RotationY += Input.GetAxis("Mouse Y") * sensitivityY;
 
-			if (!CanLoopY) rotationY = Mathf.Clamp (rotationY, minimumY, maximumY);
+			if (!CanLoopY) RotationY = Mathf.Clamp (RotationY, minimumY, maximumY);
 
-			transform.localEulerAngles = new Vector3(-rotationY, transform.localEulerAngles.y, 0);
+			transform.localEulerAngles = new Vector3(-RotationY, transform.localEulerAngles.y, 0);
 		}
 	}
 
@@ -74,6 +74,11 @@ public class MouseLook : MonoBehaviour {
 		defaultMaxY = maximumY;
 		defaultCanLoopX = CanLoopX;
 		defaultCanLoopY = CanLoopY;
+	}
+
+	public void SetCamRotation(float rotX, float rotY) {
+		RotationX = rotX;
+		RotationY = rotY;
 	}
 
 	public void Reset() {
