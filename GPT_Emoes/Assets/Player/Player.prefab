@@ -52,6 +52,7 @@ GameObject:
   - component: {fileID: 114926465986883970}
   - component: {fileID: 114129956323028590}
   - component: {fileID: 114574495151625076}
+  - component: {fileID: 114321302859202494}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -251,6 +252,23 @@ MonoBehaviour:
   mouseLookScripts:
   - {fileID: 114544769857445496}
   - {fileID: 114831039848043696}
+--- !u!114 &114321302859202494
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1481014933187912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef85b6c1acbbfbc4da59a9c606a17cc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CrouchCamY: -0.4
+  CrouchPlayerHeight: 1.2
+  CrawlCamY: -0.6
+  CrawlPlayerHeight: 1
+  CamTransformSpeed: 0.1
+  State: 2
 --- !u!114 &114410396444032574
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -301,7 +319,9 @@ MonoBehaviour:
     maxSidewaysSpeed: 5
     maxBackwardsSpeed: 5
     maxForwardSpeedMultiplier: 2
-    isSprinting: 0
+    maxForwardCrawlSpeedMultiplier: 0.2
+    maxForwardCrouchSpeedMultiplier: 0.5
+    PlayerMovementState: 1
     slopeSpeedMultiplier:
       serializedVersion: 2
       m_Curve:
@@ -364,6 +384,8 @@ MonoBehaviour:
   CanLoopY: 0
   minimumY: -60
   maximumY: 60
+  RotationY: 0
+  RotationX: 0
 --- !u!114 &114546139006589504
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -422,6 +444,8 @@ MonoBehaviour:
   CanLoopY: 0
   minimumY: -50
   maximumY: 50
+  RotationY: 0
+  RotationX: 0
 --- !u!114 &114855938913304712
 MonoBehaviour:
   m_ObjectHideFlags: 1
