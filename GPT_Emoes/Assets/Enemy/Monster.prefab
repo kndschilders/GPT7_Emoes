@@ -1786,7 +1786,7 @@ Transform:
   m_GameObject: {fileID: 1635052034645394}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: -0.5, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_Children:
   - {fileID: 4899586535043362}
   - {fileID: 4580446304902300}
@@ -1911,7 +1911,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1875381236685058}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -39.55245, y: 1, z: -13.8}
+  m_LocalPosition: {x: 53.967957, y: 63.50369, z: 0.056015015}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4668787919835084}
@@ -2195,8 +2195,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 5, y: 1, z: 15}
-  m_Center: {x: 0, y: 0, z: 8}
+  m_Size: {x: 20, y: 1, z: 20}
+  m_Center: {x: 0, y: 0, z: 12.5}
 --- !u!95 &95029483301217888
 Animator:
   serializedVersion: 3
@@ -2225,6 +2225,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b467a3c59c1c1d741bc67e13f082e0cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameOverEvent: {fileID: 11400000, guid: 62e57b08c360dac4fb36af3ce599621a, type: 2}
+  CatchDistance: 5
   EnemyAnimator: {fileID: 114550618834140280}
   PlayerStressLevel:
     UseConstant: 0
@@ -2237,15 +2239,15 @@ MonoBehaviour:
   Behavior: 0
   ChaseUpdateTickTime: 0.25
   MinDistanceToInvestigationSite: 5
-  InvestigationRadius: 10
+  InvestigationRadius: 20
   MoveSpeedRoaming: 1.5
-  MoveSpeedInvestigating: 1.75
+  MoveSpeedInvestigating: 2.25
   MoveSpeedChasing: 4
   AlertnessIncrement: 1.5
   InvestigationAlertnessThreshold: 3
   AlertnessReductionPerSecond: 0.5
   MaxAlertness: 5
-  MaxDistanceToPlayer: 25
+  MaxDistanceToPlayer: 100
   DistanceCheckTickTime: 2
   DistanceToSelfWeight: 1
   DistanceToPlayerWeight: 1
@@ -2309,6 +2311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9892286d82884cc43bbaa0a121301d3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Time: 1
   ToDo:
     m_PersistentCalls:
       m_Calls:
@@ -2790,7 +2793,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1875381236685058}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 4
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50

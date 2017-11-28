@@ -16,6 +16,11 @@ public class Enemy : MonoBehaviour
 
     #region Public variables
 
+    #region Public variables - Catching player
+    public GameEvent GameOverEvent;
+    public float CatchDistance = 5f;
+    #endregion
+
     public EnemyAnimator EnemyAnimator;
     public FloatReference PlayerStressLevel;
     public Vector3Reference LastPlayerPos;
@@ -128,13 +133,18 @@ public class Enemy : MonoBehaviour
             UpdateBehaviorState(BehaviorState.Investigating);
     }
 
+    /// <summary>
+    /// Check if the player is within the enemy's line of sight.
+    /// </summary>
+    /// <returns></returns>
     private bool PlayerInLOS()
     {
         // Check if player in LOS.
         RaycastHit hit;
         Ray ray = new Ray(transform.position, (playerObject.transform.position - transform.position).normalized);
         Physics.Raycast(ray, out hit);
-        return hit.collider != null && (hit.collider.gameObject == playerObject);
+        bool inRange = hit.collider != null && (hit.collider.gameObject == playerObject);
+        return inRange;
     }
     #endregion
 
@@ -320,6 +330,7 @@ public class Enemy : MonoBehaviour
 
     /// <summary>
     /// When called whilst chase behavior is active, start moving towards player location until switched to another behavior.
+    /// When player is within catch distance, raises game-over event.
     /// </summary>
     private void Chase()
     {
@@ -332,7 +343,14 @@ public class Enemy : MonoBehaviour
             UpdateBehaviorState(BehaviorState.Investigating);
             return;
         }
+        // Raise game-over event when player is within catch distance
+        else if (Vector3.Distance(transform.position, playerObject.transform.position) <= CatchDistance)
+        {
+            GameOverEvent.Raise();
+            return;
+        }
 
+        // Move to player
         Move(playerObject.transform.position);
     }
 
