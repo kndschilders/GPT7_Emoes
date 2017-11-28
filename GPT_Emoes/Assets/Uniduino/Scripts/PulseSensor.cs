@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Uniduino;
+using DG.Tweening;
 using System.IO.Ports;
 
 public class PulseSensor : MonoBehaviour {
@@ -203,7 +204,11 @@ public class PulseSensor : MonoBehaviour {
     void CalculateStressLevel()
     {
         float lastStress = stresslevel.Value;
-        stresslevel.SetValue((float)BPM / (150f - 35f));
+        Transform t = gameObject.transform;
+        t.position.Set(lastStress, 0, 0);
+        t.DOMoveX((float)BPM / (150f - 35f), 1).OnUpdate(() => {
+            stresslevel.SetValue(t.position.x);
+        });
     }
 
     IEnumerator PulseFound()
