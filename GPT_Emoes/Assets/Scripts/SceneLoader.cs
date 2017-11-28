@@ -5,19 +5,23 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour {
 
-	public void OnGoToGameOver() {
+	public void GoToGameWon() {
+		SceneManager.LoadScene ("game_won");
+	}
+
+	public void GoToGameOver() {
 		SceneManager.LoadScene ("game_over");
 	}
 
-	public void OnGoToMainMenu() {
+	public void GoToMainMenu() {
 		SceneManager.LoadScene ("main_menu");
 	}
 
-	public void OnGoToLabyrinth() {
+	public void GoToLabyrinth() {
 		SceneManager.LoadScene ("labyrint_pretty");
 	}
 
-	public void OnGoToJacksPlayground() {
+	public void GoToJacksPlayground() {
 		SceneManager.LoadScene ("JacksPlayground");
 	}
 }
