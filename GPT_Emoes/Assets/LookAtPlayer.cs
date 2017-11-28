@@ -3,7 +3,8 @@
 public class LookAtPlayer : MonoBehaviour {
 
     private Transform player;
-    private SpriteRenderer icon;
+    private Material icon;
+    private MeshRenderer renderer;
 
     private Color color;
 
@@ -12,25 +13,29 @@ public class LookAtPlayer : MonoBehaviour {
     
 	void Start () {
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        icon = GetComponent<SpriteRenderer>();
-        color = new Color(1, 1, 1, 1);
+        icon = GetComponent<Renderer>().material;
+        renderer = GetComponent<MeshRenderer>();
+        color = icon.color;
+        renderer.enabled = false;
 	}
 	void Update () {
-        transform.LookAt(new Vector3(player.position.x, transform.position.y, player.position.z));
+        transform.Rotate(new Vector3(0, 40 * Time.deltaTime, 0));
 
         float _distance = Vector3.Distance(transform.position, player.position);
 
         if(_distance < VisibleDistance)
         {
-            float _FadedInDistance = VisibleDistance - FadeInDistance;
-            _distance -= _FadedInDistance;
+            renderer.enabled = true;
+            //float _FadedInDistance = VisibleDistance - FadeInDistance;
+            //_distance -= _FadedInDistance;
 
-            color.a = Mathf.Clamp(1 - _distance / FadeInDistance, 0f, 1f);
-            icon.color = color;
+            //color.a = Mathf.Clamp(1 - _distance / FadeInDistance, 0f, 1f);
+            //icon.color = color;
         } else
         {
-            color.a = 0;
-            icon.color = color;
+            renderer.enabled = false;
+            //color.a = 0;
+            //icon.color = color;
         }
 	}
 }
