@@ -36,6 +36,7 @@ public class PlayerCrouchScript : MonoBehaviour {
 
 	private Camera cam;
 	private CharacterController cc;
+	private bool keepCheckingForCrouchState = false;
 
 	void Start () {
 		cam = GetComponentInChildren<Camera> ();
@@ -48,16 +49,42 @@ public class PlayerCrouchScript : MonoBehaviour {
 		normalPlayerCenterY = cc.center.y;
 	}
 
+	private bool canStand() {
+		Ray ray = new Ray (transform.position, Vector3.up);
+
+		Debug.DrawRay (transform.position, Vector3.up, Color.red);
+
+		RaycastHit hit;
+		if (Physics.Raycast (ray, out hit)) {
+			if (hit.collider != null) return false;
+		}
+
+		return true;
+	}
+
+	private void standUp() {
+		if (canStand ()) {
+			keepCheckingForCrouchState = false;
+			OnCrouchChange (CrouchState.None);
+		} else {
+			keepCheckingForCrouchState = true;
+		}
+	}
+
 	void Update() {
+		if (keepCheckingForCrouchState) {
+			standUp ();
+		}
+
 		if (Input.GetKeyDown (KeyCode.LeftControl))
 			OnCrouchChange (CrouchState.Crouch);
 		if (Input.GetKeyUp (KeyCode.LeftControl))
-			OnCrouchChange (CrouchState.None);
+			standUp ();
 
 		if (Input.GetKeyDown (KeyCode.C))
 			OnCrouchChange (CrouchState.Crawl);
 		if (Input.GetKeyUp (KeyCode.C))
-			OnCrouchChange (CrouchState.None);
+			standUp ();
 
 		float camDestY;
 		switch (State) {
