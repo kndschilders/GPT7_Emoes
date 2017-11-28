@@ -36,8 +36,22 @@ public class CharacterMotor : MonoBehaviour
 		// The sprinting multiplier
 		[Range(1.0f, 3.0f)]
 		public float maxForwardSpeedMultiplier = 2.0f;
+		// The crawl multiplier
+		[Range(0.1f, 1.0f)]
+		public float maxForwardCrawlSpeedMultiplier = 0.2f;
+		// The crouch multiplier
+		[Range(0.1f, 1.0f)]
+		public float maxForwardCrouchSpeedMultiplier = 0.5f;
+
+
 		[HideInInspector]
-		public bool isSprinting = false;
+		public MovementState PlayerMovementState = MovementState.Crouching;
+		public enum MovementState {
+			Crawling,
+			Crouching,
+			Moving,
+			Spriting
+		}
 
 		// Curve for multiplying speed based on slope(negative = downwards)
 		public AnimationCurve slopeSpeedMultiplier = new AnimationCurve(new Keyframe(-90, 1), new Keyframe(0, 1), new Keyframe(90, 0));
@@ -205,10 +219,14 @@ public class CharacterMotor : MonoBehaviour
 	private void UpdateFunction()
 	{
 		// Set sprinting enabled or disabled.
-		if (Input.GetKey (KeyCode.LeftShift))
-			movement.isSprinting = true;
+		if (Input.GetKey (KeyCode.LeftControl))
+			movement.PlayerMovementState = CharacterMotorMovement.MovementState.Crouching;
+		else if (Input.GetKey (KeyCode.C))
+			movement.PlayerMovementState = CharacterMotorMovement.MovementState.Crawling;
+		else if (Input.GetKey (KeyCode.LeftShift))
+			movement.PlayerMovementState = CharacterMotorMovement.MovementState.Spriting;
 		else
-			movement.isSprinting = false;
+			movement.PlayerMovementState = CharacterMotorMovement.MovementState.Moving;
 		
 		// We copy the actual velocity into a temporary variable that we can manipulate.
 		Vector3 velocity = movement.velocity;
@@ -651,9 +669,26 @@ public class CharacterMotor : MonoBehaviour
 		else
 		{
 			float zAxisEllipseMultiplier = (desiredMovementDirection.z > 0 ? movement.maxForwardSpeed : movement.maxBackwardsSpeed) / movement.maxSidewaysSpeed;
-			//zAxisEllipseMultiplier *= movement.isSprinting ? movement.maxForwardSpeedMultiplier : 1.0f;
 			Vector3 temp = new Vector3(desiredMovementDirection.x, 0, desiredMovementDirection.z / zAxisEllipseMultiplier).normalized;
-			float length = new Vector3(temp.x, 0, temp.z * zAxisEllipseMultiplier).magnitude * movement.maxSidewaysSpeed * (movement.isSprinting ? movement.maxForwardSpeedMultiplier : 1.0f);
+
+			float forwardMovementSpeedMultiplier;
+			switch (movement.PlayerMovementState) {
+				case CharacterMotorMovement.MovementState.Crawling:
+					forwardMovementSpeedMultiplier = movement.maxForwardCrawlSpeedMultiplier;
+					break;
+				case CharacterMotorMovement.MovementState.Crouching:
+					forwardMovementSpeedMultiplier = movement.maxForwardCrouchSpeedMultiplier;
+					break;
+				case CharacterMotorMovement.MovementState.Spriting:
+					forwardMovementSpeedMultiplier = movement.maxForwardSpeedMultiplier;
+					break;
+				case CharacterMotorMovement.MovementState.Moving:
+				default:
+					forwardMovementSpeedMultiplier = 1.0f;
+					break;
+			}
+
+			float length = new Vector3(temp.x, 0, temp.z * zAxisEllipseMultiplier).magnitude * movement.maxSidewaysSpeed * forwardMovementSpeedMultiplier;
 			return length;
 		}
 	}

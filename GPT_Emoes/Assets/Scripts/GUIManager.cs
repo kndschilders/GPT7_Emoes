@@ -19,4 +19,16 @@ public class GUIManager : MonoBehaviour {
 	public void SetInteractionText(string text) {
 		InteractionText.text = text;
 	}
+
+	public void SetHiding(bool enabled) {
+	}
+
+	public void UpdateHeartbeat(int heartbeat) {
+	}
+
+	public void SetAlertMode(AlertMode alertMode) {
+	}
+
+	public void SetMonsterState(MonsterState monsterState) {
+	}
 }

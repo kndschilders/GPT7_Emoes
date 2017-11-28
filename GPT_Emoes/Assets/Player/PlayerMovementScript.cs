@@ -10,8 +10,17 @@ public class PlayerMovementScript : MonoBehaviour {
 
 	public float Speed = 6.0f;
 	public float SprintSpeed = 10.0f;
+	public float CrouchSpeed = 3.0f;
 	public float JumpSpeed = 8.0f;
 	public float Gravity = 20.0f;
+
+	public enum PlayerMovementState {
+		Moving,
+		Sprinting,
+		Crouching
+	}
+
+	public PlayerMovementState MovementState = PlayerMovementState.Moving;
 
 	public enum FogDistance {
 		Close,
@@ -45,14 +54,31 @@ public class PlayerMovementScript : MonoBehaviour {
 	void Update () {
 		if (!isHiding) {
 			if (cc.isGrounded) {
-				bool isSprinting = false;
-
 				if (Input.GetKey (KeyCode.LeftShift))
-					isSprinting = true;
+					MovementState = PlayerMovementState.Sprinting;
+				else if (Input.GetKey (KeyCode.LeftControl))
+					MovementState = PlayerMovementState.Crouching;
+				else
+					MovementState = PlayerMovementState.Moving;
+
+
+				float speed;
+				switch (MovementState) {
+					case PlayerMovementState.Crouching:
+						speed = CrouchSpeed;	
+						break;
+					case PlayerMovementState.Sprinting:
+						speed = SprintSpeed;	
+						break;
+					case PlayerMovementState.Moving:
+					default:
+						speed = Speed;
+						break;
+				}
 				
 				moveDirection = new Vector3 (Input.GetAxisRaw ("Horizontal"), 0.0f, Input.GetAxisRaw ("Vertical"));
 				moveDirection = transform.TransformDirection (moveDirection);
-				moveDirection *= isSprinting ? SprintSpeed : Speed;
+				moveDirection *= speed;
 
 				if (Input.GetButton ("Jump"))
 					moveDirection.y = JumpSpeed;

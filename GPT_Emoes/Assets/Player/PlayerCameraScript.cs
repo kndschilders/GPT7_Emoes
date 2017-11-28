@@ -25,7 +25,23 @@ public class PlayerCameraScript : MonoBehaviour {
 	public float maximumY = 60F;
 
 	float rotationX = 0F;
+	public float RotationX {
+		get {
+			return rotationX;
+		}
+		private set {
+			rotationX = value;
+		}
+	}
 	float rotationY = 0F;
+	public float RotationY {
+		get {
+			return rotationY;
+		}
+		private set {
+			rotationY = value;
+		}
+	}
 
 	private List<float> rotArrayX = new List<float>();
 	float rotAverageX = 0F;	
@@ -39,7 +55,8 @@ public class PlayerCameraScript : MonoBehaviour {
 
 	void Start () {
 		Rigidbody rb = GetComponent<Rigidbody> ();
-		if (rb) rb.freezeRotation = true;
+		if (rb)
+			rb.freezeRotation = true;
 
 		originalRotation = transform.localRotation;
 	}
@@ -50,11 +67,11 @@ public class PlayerCameraScript : MonoBehaviour {
 			rotAverageY = 0f;
 			rotAverageX = 0f;
 
-			rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
-			rotationX += Input.GetAxis("Mouse X") * sensitivityX;
+			RotationY += Input.GetAxis("Mouse Y") * sensitivityY;
+			RotationX += Input.GetAxis("Mouse X") * sensitivityX;
 
-			rotArrayY.Add(rotationY);
-			rotArrayX.Add(rotationX);
+			rotArrayY.Add(RotationY);
+			rotArrayX.Add(RotationX);
 
 			if (rotArrayY.Count >= frameCounter) {
 				rotArrayY.RemoveAt(0);
@@ -85,9 +102,9 @@ public class PlayerCameraScript : MonoBehaviour {
 		{			
 			rotAverageX = 0f;
 
-			rotationX += Input.GetAxis("Mouse X") * sensitivityX;
+			RotationX += Input.GetAxis("Mouse X") * sensitivityX;
 
-			rotArrayX.Add(rotationX);
+			rotArrayX.Add(RotationX);
 
 			if (rotArrayX.Count >= frameCounter) {
 				rotArrayX.RemoveAt(0);
@@ -106,9 +123,9 @@ public class PlayerCameraScript : MonoBehaviour {
 		{
 			rotAverageY = 0f;
 
-			rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
+			RotationY += Input.GetAxis("Mouse Y") * sensitivityY;
 
-			rotArrayY.Add(rotationY);
+			rotArrayY.Add(RotationY);
 
 			if (rotArrayY.Count >= frameCounter) {
 				rotArrayY.RemoveAt(0);
@@ -123,6 +140,11 @@ public class PlayerCameraScript : MonoBehaviour {
 			Quaternion yQuaternion = Quaternion.AngleAxis (rotAverageY, Vector3.left);
 			transform.localRotation = originalRotation * yQuaternion;
 		}
+	}
+
+	public void SetRotation(float rotX, float rotY) {
+		RotationX = rotX;
+		RotationY = rotY;
 	}
 
 	public static float ClampAngle (float angle, float min, float max)
