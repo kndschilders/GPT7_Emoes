@@ -9,11 +9,29 @@ public class GUIManager : MonoBehaviour {
 
 	public Text InteractionText;
 
+	public RectTransform LocationIndicatorRectTransform;
+
 	void Awake() {
 		if (instance == null)
 			instance = this;
 		else if (instance != this)
 			Destroy (gameObject);
+	}
+
+	public void UpdateEnemyLocationIndicator(Vector3 enemyPos, Vector3 playerPos, float playerRotation) {
+		Vector2 ePos = new Vector2 (enemyPos.x, enemyPos.z);
+		Vector2 pPos = new Vector2 (playerPos.x, playerPos.z);
+
+		Vector2 diff = ePos - pPos;
+		float sign = (ePos.y < pPos.y) ? -1.0f : 1.0f;
+
+		float angle = ((Vector2.Angle (Vector2.right, diff) * sign) + playerRotation) % 360.0f;
+
+		LocationIndicatorRectTransform.eulerAngles = new Vector3 (
+			LocationIndicatorRectTransform.rotation.x,
+			LocationIndicatorRectTransform.rotation.y,
+			angle
+		);
 	}
 	
 	public void SetInteractionText(string text) {
