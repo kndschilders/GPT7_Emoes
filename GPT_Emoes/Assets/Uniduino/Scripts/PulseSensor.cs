@@ -34,11 +34,16 @@ public class PulseSensor : MonoBehaviour {
     volatile bool firstBeat = true;
     volatile bool secondBeat = false;
 
+    GameObject emptyGO;
 
-	// Use this for initialization
-	void Start () {
+
+    // Use this for initialization
+    void Start () {
         arduino = Arduino.global;
         arduino.Setup(ConfigurePins);
+        emptyGO = new GameObject();
+        emptyGO.name = "stressfloat";
+        emptyGO.transform.position.Set(16, 0, 0);
 	}
 
     void ConfigurePins()
@@ -204,10 +209,11 @@ public class PulseSensor : MonoBehaviour {
     void CalculateStressLevel()
     {
         float lastStress = stresslevel.Value;
-        Transform t = gameObject.transform;
+        Transform t = emptyGO.transform;
         t.position.Set(lastStress, 0, 0);
         t.DOMoveX((float)BPM / (150f - 35f), 1).OnUpdate(() => {
             stresslevel.SetValue(t.position.x);
+            lastStress = stresslevel.Value;
         });
     }
 

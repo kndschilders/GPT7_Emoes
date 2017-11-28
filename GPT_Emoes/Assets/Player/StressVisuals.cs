@@ -24,7 +24,7 @@ public class StressVisuals : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         ChromaticAberrationModel.Settings chromaticAberration = m_Profile.chromaticAberration.settings;
-        chromaticAberration.intensity = stressLevel.Value*1.5f;
+        chromaticAberration.intensity = Mathf.Pow(stressLevel.Value, 1.2f);
         m_Profile.chromaticAberration.settings = chromaticAberration;
         fogMat.SetFloat("_depth", stressLevel.Value);
     }

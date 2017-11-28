@@ -28077,6 +28077,23 @@ Transform:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 940d55d4117386f4f9398ea3ff52d4cd, type: 2}
   m_PrefabInternal: {fileID: 359570104}
+--- !u!1 &1126464396 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1160417578049782, guid: 11bc81d08bdb02b4e9718d9cdaea3b17,
+    type: 2}
+  m_PrefabInternal: {fileID: 942458866}
+--- !u!114 &1126464407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1126464396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 134de05342f45e44598aa9b8b8dfc527, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stressLevel: {fileID: 11400000, guid: 27bbe881bfd2d1c45bc7f32d912e10a7, type: 2}
 --- !u!1001 &1127616276
 Prefab:
   m_ObjectHideFlags: 0
@@ -33122,6 +33139,50 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 940d55d4117386f4f9398ea3ff52d4cd, type: 2}
   m_PrefabInternal: {fileID: 1416515813}
+--- !u!1 &1326857880
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1326857882}
+  - component: {fileID: 1326857881}
+  m_Layer: 0
+  m_Name: Uniduino
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1326857881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1326857880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee80ba8b4c5bd46839658bcfeb780748, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PortName: COM4
+  Baud: 57600
+  RebootDelay: 3
+  AutoConnect: 1
+--- !u!4 &1326857882
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1326857880}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -65.6821, y: 96.6284, z: 192.91568}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1327574779
 Prefab:
   m_ObjectHideFlags: 0
@@ -41788,6 +41849,26 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0f1e1518a80e562458930d8b2d0670d9, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1729267082 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1481014933187912, guid: 11bc81d08bdb02b4e9718d9cdaea3b17,
+    type: 2}
+  m_PrefabInternal: {fileID: 942458866}
+--- !u!114 &1729267083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1729267082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30168f16d17d07542a22d0e6952ec370, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stresslevel: {fileID: 11400000, guid: 27bbe881bfd2d1c45bc7f32d912e10a7, type: 2}
+  arduino: {fileID: 1326857881}
+  pin: 0
+  pinValue: 0
 --- !u!1001 &1731577568
 Prefab:
   m_ObjectHideFlags: 0
