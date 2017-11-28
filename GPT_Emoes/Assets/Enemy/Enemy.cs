@@ -308,6 +308,11 @@ public class Enemy : MonoBehaviour
     {
         ChangeAlertnessLevel(-AlertnessReductionPerSecond);
     }
+
+    public float GetAlertnessPercentage()
+    {
+        return alertness / MaxAlertness;
+    }
     #endregion
 
     #region Behavior
