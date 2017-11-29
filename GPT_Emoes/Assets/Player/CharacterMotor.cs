@@ -211,12 +211,12 @@ public class CharacterMotor : MonoBehaviour
 
 	private void UpdateFunction()
 	{
-		if (Input.GetKeyDown (KeyCode.LeftShift)) {
+		/*if (Input.GetKeyDown (KeyCode.LeftShift)) {
 			PlayerStateRef.Variable.Value = PlayerState.Sprint;
 		}
 		if (Input.GetKeyUp (KeyCode.LeftShift)) {
 			PlayerStateRef.Variable.Value = PlayerState.Stand;
-		}
+		}*/
 
 		// We copy the actual velocity into a temporary variable that we can manipulate.
 		Vector3 velocity = movement.velocity;
