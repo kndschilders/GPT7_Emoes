@@ -72,6 +72,7 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private float alertness = 0f;
     private GameObject playerObject;
+    private MonsterSoundManager soundManager;
     #endregion
 
     #region Initializaiton
@@ -80,6 +81,7 @@ public class Enemy : MonoBehaviour
         mover = GetComponent<Mover>();
         playerObject = GameObject.FindGameObjectWithTag("Player");
         RoamDestinations = GameObject.FindGameObjectsWithTag("Destination");
+        soundManager = GetComponent<MonsterSoundManager>();
 
         if (playerObject != null)
             Debug.Log("Found player: " + playerObject.name);
@@ -331,6 +333,7 @@ public class Enemy : MonoBehaviour
     {
         Debug.Log(name + " is roaming.");
         Move(RandomUtil.RandomElement(RoamDestinations).transform.position);
+        soundManager.PlaySoundCue(MonsterSoundManager.SoundCues.Roaming);
     }
 
     /// <summary>
@@ -357,6 +360,7 @@ public class Enemy : MonoBehaviour
 
         // Move to player
         Move(playerObject.transform.position);
+        soundManager.PlaySoundCue(MonsterSoundManager.SoundCues.Chasing);
     }
 
     /// <summary>
@@ -377,6 +381,7 @@ public class Enemy : MonoBehaviour
 
         Debug.Log(name + " is moving to inversigation site.");
         Move(LastPlayerPos);
+        soundManager.PlaySoundCue(MonsterSoundManager.SoundCues.Investigating);
     }
 
     /// <summary>
