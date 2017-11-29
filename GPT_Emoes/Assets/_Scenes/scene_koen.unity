@@ -485,7 +485,7 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 2
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -523,7 +523,7 @@ RectTransform:
   m_GameObject: {fileID: 656875015}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 446, y: 211.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.3333334, y: 1.3333334, z: 1.3333334}
   m_Children:
   - {fileID: 1565194437}
   - {fileID: 1683560918}
@@ -1299,6 +1299,26 @@ Prefab:
       propertyPath: Enemy
       value: 
       objectReference: {fileID: 1301105865}
+    - target: {fileID: 212675186946564974, guid: e17d97b6bb0ccd24fa869dc684307d73,
+        type: 2}
+      propertyPath: m_DrawMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224330276402769434, guid: e17d97b6bb0ccd24fa869dc684307d73,
+        type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224330276402769434, guid: e17d97b6bb0ccd24fa869dc684307d73,
+        type: 2}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224330276402769434, guid: e17d97b6bb0ccd24fa869dc684307d73,
+        type: 2}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e17d97b6bb0ccd24fa869dc684307d73, type: 2}
   m_IsPrefabParent: 0
