@@ -12,6 +12,7 @@ public class CharacterMotor : MonoBehaviour
 	// Does this script currently respond to input?
 	bool canControl = true;
 	bool useFixedUpdate = true;
+    public FloatVariable stressLevel;
 
 	// For the next variables, [System.NonSerialized] tells Unity to not serialize the variable or show it in the inspector view.
 	// Very handy for organization!
@@ -673,7 +674,7 @@ public class CharacterMotor : MonoBehaviour
 					break;
 				case PlayerState.Stand:
 				default:
-					forwardMovementSpeedMultiplier = 1.0f;
+					forwardMovementSpeedMultiplier = Mathf.Clamp(stressLevel.Value * 1.8f, 1, 1.8f);
 					break;
 			}
 

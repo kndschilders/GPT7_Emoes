@@ -2433,10 +2433,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de49d51fd1de2dd47b9defceb5c973b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RoamSound: {fileID: 0}
-  InvestigateSound: {fileID: 0}
-  ChaseSound: {fileID: 0}
-  WalkSound: {fileID: 0}
+  RoamSounds: []
+  InvestigateSounds: []
+  ChaseSounds:
+  - {fileID: 8300000, guid: 70234592692f5e643a6ad76bde20839c, type: 3}
+  - {fileID: 8300000, guid: 215741affdad871488c6cfc2cf08c818, type: 3}
+  - {fileID: 8300000, guid: 5fa66c570a22cc9448d0052b4715636a, type: 3}
+  AudioCueCooldownTime: 1
+  MaxRandomCooldownDelay: 1
+  WalkSoundLoop: {fileID: 8300000, guid: 1f9f6daab0925e8488736e2123bda8ef, type: 3}
 --- !u!114 &114550618834140280
 MonoBehaviour:
   m_ObjectHideFlags: 1

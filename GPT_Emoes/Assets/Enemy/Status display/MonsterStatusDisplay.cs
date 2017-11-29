@@ -36,7 +36,7 @@ public class MonsterStatusDisplay : MonoBehaviour
         if (AlertnessText == null)
             return;
 
-        AlertnessText.text = alertnessPercentage + "% Alertness";
+        AlertnessText.text = alertnessPercentage * 100 + "% Alertness";
     }
 
     private void SetStatusImage(Enemy.BehaviorState behaviorState)
