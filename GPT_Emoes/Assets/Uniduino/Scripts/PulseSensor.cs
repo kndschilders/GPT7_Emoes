@@ -8,6 +8,7 @@ using System.IO.Ports;
 public class PulseSensor : MonoBehaviour {
 
     public FloatVariable stresslevel;
+    public FloatVariable BPMlevel;
 
     public Arduino arduino;
     public int pin = 0;
@@ -223,6 +224,7 @@ public class PulseSensor : MonoBehaviour {
         {
             yield return new WaitForSeconds(1f);
             print("BPM: " + BPM.ToString());
+            BPMlevel.SetValue(BPM);
             CalculateStressLevel();
         }
     }

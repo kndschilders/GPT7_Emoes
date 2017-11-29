@@ -6,15 +6,7 @@ using UnityEngine;
 
 public class PlayerHidingScript : MonoBehaviour {
 
-	private bool isHiding = false;
-	public bool IsHiding {
-		get {
-			return isHiding;
-		}
-		private set {
-			isHiding = value;
-		}
-	}
+	public BoolVariable IsHiding;
 
 	private Vector3 preHidingPosition;
 	private Quaternion preHidingRotation;
@@ -35,6 +27,8 @@ public class PlayerHidingScript : MonoBehaviour {
 
 		if (!playerMouseLookScript || !cameraMouseLookScript) return;
 
+		IsHiding.Value = false;
+
 		preHidingCamRotX = playerMouseLookScript.RotationX;
 		preHidingCamRotY = cameraMouseLookScript.RotationY;
 	}
@@ -45,7 +39,7 @@ public class PlayerHidingScript : MonoBehaviour {
 	}
 
 	public void EnterHidingSpot(Transform playerTransform) {
-		if (IsHiding) return;
+		if (IsHiding.Value) return;
 
 		preHidingCamRotX = playerMouseLookScript.RotationX;
 		preHidingCamRotY = cameraMouseLookScript.RotationY;
@@ -53,14 +47,14 @@ public class PlayerHidingScript : MonoBehaviour {
 		preHidingPosition = transform.position;
 		preHidingRotation = transform.localRotation;
 
-		IsHiding = true;
+		IsHiding.Value = true;
 		setPlayerTransform (playerTransform.position, playerTransform.localRotation);
 	}
 
 	public void ExitHidingSpot() {
-		if (!IsHiding) return;
+		if (!IsHiding.Value) return;
 
-		IsHiding = false;
+		IsHiding.Value = false;
 		setPlayerTransform (preHidingPosition, preHidingRotation);
 
 		playerMouseLookScript.SetCamRotation (preHidingCamRotX, preHidingCamRotY);

@@ -11,6 +11,8 @@ public class CameraMovement : MonoBehaviour {
 
     public FloatVariable stressLevel;
 
+	public PlayerStateReference PlayerStateRef;
+
 	// Use this for initialization
 	void Start () {
         midpoint = transform.localPosition.y;
@@ -18,7 +20,7 @@ public class CameraMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (GetComponentInParent<CharacterMotor>().movement.PlayerMovementState == CharacterMotor.CharacterMotorMovement.MovementState.Moving)
+		if (PlayerStateRef.Value == PlayerState.Stand)
         {
             bobbingSpeed = Mathf.Clamp(stressLevel.Value * 0.25f, 0.15f, 0.25f);
         }

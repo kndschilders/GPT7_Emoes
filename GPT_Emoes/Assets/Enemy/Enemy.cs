@@ -106,15 +106,9 @@ public class Enemy : MonoBehaviour
     #region Player detection
     private void OnTriggerEnter(Collider other)
     {
-        // test
-        Debug.Log("Something entered " + name + "'s vision");
-
         // Only check for player
         if (other.gameObject != playerObject)
-        {
-            Debug.Log("It's not the player...");
             return;
-        }
 
         // Don't do anything when player not in LOS
         if (!PlayerInLOS())
