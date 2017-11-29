@@ -318,6 +318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b704f41983e3984ebc6b48eaa050ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stressLevel: {fileID: 11400000, guid: 27bbe881bfd2d1c45bc7f32d912e10a7, type: 2}
   movement:
     maxForwardSpeed: 5
     maxSidewaysSpeed: 5
@@ -477,6 +478,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5d8f4040e81dc148bb595feef151096, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsHidingRef:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
 --- !u!124 &124693206745263546
 Behaviour:
   m_ObjectHideFlags: 1
