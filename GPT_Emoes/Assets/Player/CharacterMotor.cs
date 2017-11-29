@@ -12,6 +12,7 @@ public class CharacterMotor : MonoBehaviour
 	// Does this script currently respond to input?
 	bool canControl = true;
 	bool useFixedUpdate = true;
+    public FloatVariable stressLevel;
 
 	// For the next variables, [System.NonSerialized] tells Unity to not serialize the variable or show it in the inspector view.
 	// Very handy for organization!
@@ -221,9 +222,6 @@ public class CharacterMotor : MonoBehaviour
 
 	private void UpdateFunction()
 	{
-		if (Input.GetKey (KeyCode.LeftShift)) {
-			movement.PlayerMovementState = CharacterMotorMovement.MovementState.Spriting;
-		} else {
 			switch (crouchScript.State) {
 				case PlayerCrouchScript.CrouchState.Crawl:
 					movement.PlayerMovementState = CharacterMotorMovement.MovementState.Crawling;
@@ -233,8 +231,7 @@ public class CharacterMotor : MonoBehaviour
 					break;
 				default:
 					movement.PlayerMovementState = CharacterMotorMovement.MovementState.Moving;
-					break;
-			}
+                break;
 		}
 
 		// We copy the actual velocity into a temporary variable that we can manipulate.
@@ -693,7 +690,7 @@ public class CharacterMotor : MonoBehaviour
 					break;
 				case CharacterMotorMovement.MovementState.Moving:
 				default:
-					forwardMovementSpeedMultiplier = 1.0f;
+					forwardMovementSpeedMultiplier = Mathf.Clamp(stressLevel.Value * 1.8f, 1, 1.8f);
 					break;
 			}
 
