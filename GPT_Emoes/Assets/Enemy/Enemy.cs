@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(Mover), typeof(BoxCollider))]
+[RequireComponent(typeof(Mover), typeof(BoxCollider), typeof(MonsterSoundManager))]
 public class Enemy : MonoBehaviour
 {
     public enum BehaviorState
