@@ -37,10 +37,12 @@ public class PlayerCrouchScript : MonoBehaviour {
 	private Camera cam;
 	private CharacterController cc;
 	private bool keepCheckingForCrouchState = false;
+	private PlayerHidingScript hidingScript;
 
 	void Start () {
 		cam = GetComponentInChildren<Camera> ();
 		cc = GetComponent<CharacterController> ();
+		hidingScript = GetComponent<PlayerHidingScript> ();
 
 		if (!cam || !cc) return;
 
@@ -55,7 +57,7 @@ public class PlayerCrouchScript : MonoBehaviour {
 		Debug.DrawRay (transform.position, Vector3.up, Color.red);
 
 		RaycastHit hit;
-		if (Physics.Raycast (ray, out hit)) {
+		if (Physics.Raycast (ray, out hit, 1.5f)) {
 			if (hit.collider != null) return false;
 		}
 
@@ -72,19 +74,23 @@ public class PlayerCrouchScript : MonoBehaviour {
 	}
 
 	void Update() {
-		if (keepCheckingForCrouchState) {
-			standUp ();
+		if (hidingScript.IsHiding) {
+			if (State != CrouchState.None)
+				OnCrouchChange (CrouchState.None);
+		} else {
+			if (keepCheckingForCrouchState)
+				standUp ();
+
+			if (Input.GetKeyDown (KeyCode.LeftControl))
+				OnCrouchChange (CrouchState.Crouch);
+			if (Input.GetKeyUp (KeyCode.LeftControl))
+				standUp ();
+
+			if (Input.GetKeyDown (KeyCode.C))
+				OnCrouchChange (CrouchState.Crawl);
+			if (Input.GetKeyUp (KeyCode.C))
+				standUp ();
 		}
-
-		if (Input.GetKeyDown (KeyCode.LeftControl))
-			OnCrouchChange (CrouchState.Crouch);
-		if (Input.GetKeyUp (KeyCode.LeftControl))
-			standUp ();
-
-		if (Input.GetKeyDown (KeyCode.C))
-			OnCrouchChange (CrouchState.Crawl);
-		if (Input.GetKeyUp (KeyCode.C))
-			standUp ();
 
 		float camDestY;
 		switch (State) {
