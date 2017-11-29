@@ -12,13 +12,14 @@ using System.Collections;
 
 
 public class FPSInputController : MonoBehaviour {
+
+	public BoolReference IsHidingRef;
+
 	private CharacterMotor cmotor;
-	private PlayerHidingScript hidingScript;
 
 	// Use this for initialization
 	void Awake() {
 		cmotor = GetComponent<CharacterMotor>();
-		hidingScript = GetComponent<PlayerHidingScript> ();
 	}
 
 	// Update is called once per frame
@@ -43,12 +44,12 @@ public class FPSInputController : MonoBehaviour {
 			directionVector = directionVector * directionLength;
 		}
 
-		if (hidingScript.IsHiding)
+		if (IsHidingRef.Value)
 			directionVector = Vector3.zero;
 
 		// Apply the direction to the CharacterMotor
 		cmotor.inputMoveDirection = transform.rotation * directionVector;
-		cmotor.inputJump = Input.GetButton("Jump") && !hidingScript.IsHiding;
+		cmotor.inputJump = Input.GetButton("Jump") && !IsHidingRef.Value;
 	}
 
 }
