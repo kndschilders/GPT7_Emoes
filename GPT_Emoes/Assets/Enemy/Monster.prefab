@@ -2433,8 +2433,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de49d51fd1de2dd47b9defceb5c973b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RoamSounds: []
-  InvestigateSounds: []
+  RoamSounds:
+  - {fileID: 8300000, guid: 215741affdad871488c6cfc2cf08c818, type: 3}
+  InvestigateSounds:
+  - {fileID: 8300000, guid: 70234592692f5e643a6ad76bde20839c, type: 3}
   ChaseSounds:
   - {fileID: 8300000, guid: 70234592692f5e643a6ad76bde20839c, type: 3}
   - {fileID: 8300000, guid: 215741affdad871488c6cfc2cf08c818, type: 3}
