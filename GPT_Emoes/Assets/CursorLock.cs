@@ -6,6 +6,8 @@ public class CursorLock : MonoBehaviour {
 
     public bool CursorIsLocked = true;
 
+	public bool CanHide = true;
+
 #region Instance
 
     public static CursorLock instance = null;
@@ -18,23 +20,15 @@ public class CursorLock : MonoBehaviour {
 #endregion
 
     void Update () {
-	    if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            CursorIsLocked = false;
-        }
-        if(Input.GetMouseButton(0))
-        {
-            CursorIsLocked = true;
-        }
+		if (CanHide) {
+			if (Input.GetKeyDown (KeyCode.Escape))
+				CursorIsLocked = false;
 
-        if(CursorIsLocked)
-        {
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-        } else
-        {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-        }
+			if (Input.GetMouseButton (0))
+				CursorIsLocked = true;
+		}
+
+		Cursor.visible = CursorIsLocked ? false : true;
+		Cursor.lockState = CursorIsLocked ? CursorLockMode.Locked : CursorLockMode.None;
 	}
 }
