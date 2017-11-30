@@ -58,7 +58,8 @@ public class Mover : MonoBehaviour
     public void TeleportToLocation(Vector3 location)
     {
         moveDestination = location;
-        transform.position = location;
+        //transform.position = location;
+        agent.Warp(location);
 
         StopCoroutine("CheckDestinationReached");
         StartCoroutine("CheckDestinationReached");
