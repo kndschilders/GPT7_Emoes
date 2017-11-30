@@ -6,13 +6,12 @@ using UnityEngine.UI;
 public class BPMText : MonoBehaviour {
 
     public FloatVariable BPMLevel;
-	// Use this for initialization
-	void Start () {
-		
-	}
+
+    public Animator AC;
+    public Text BPMUIText;
 	
-	// Update is called once per frame
 	void Update () {
-        gameObject.GetComponent<Text>().text = ((int)BPMLevel.Value).ToString();
+        BPMUIText.text = ((int)BPMLevel.Value).ToString();
+        AC.SetFloat("multiplier", BPMLevel.Value);
 	}
 }
