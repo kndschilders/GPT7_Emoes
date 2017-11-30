@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(Mover), typeof(BoxCollider))]
+[RequireComponent(typeof(Mover), typeof(BoxCollider), typeof(MonsterSoundManager))]
 public class Enemy : MonoBehaviour
 {
     public enum BehaviorState
@@ -72,6 +72,7 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private float alertness = 0f;
     private GameObject playerObject;
+    private MonsterSoundManager soundManager;
     #endregion
 
     #region Initializaiton
@@ -80,6 +81,7 @@ public class Enemy : MonoBehaviour
         mover = GetComponent<Mover>();
         playerObject = GameObject.FindGameObjectWithTag("Player");
         RoamDestinations = GameObject.FindGameObjectsWithTag("Destination");
+        soundManager = GetComponent<MonsterSoundManager>();
 
         if (playerObject != null)
             Debug.Log("Found player: " + playerObject.name);
@@ -104,15 +106,9 @@ public class Enemy : MonoBehaviour
     #region Player detection
     private void OnTriggerEnter(Collider other)
     {
-        // test
-        Debug.Log("Something entered " + name + "'s vision");
-
         // Only check for player
         if (other.gameObject != playerObject)
-        {
-            Debug.Log("It's not the player...");
             return;
-        }
 
         // Don't do anything when player not in LOS
         if (!PlayerInLOS())
@@ -331,6 +327,7 @@ public class Enemy : MonoBehaviour
     {
         Debug.Log(name + " is roaming.");
         Move(RandomUtil.RandomElement(RoamDestinations).transform.position);
+        soundManager.PlaySoundCue(MonsterSoundManager.SoundCues.Roaming);
     }
 
     /// <summary>
@@ -357,6 +354,7 @@ public class Enemy : MonoBehaviour
 
         // Move to player
         Move(playerObject.transform.position);
+        soundManager.PlaySoundCue(MonsterSoundManager.SoundCues.Chasing);
     }
 
     /// <summary>
@@ -377,6 +375,7 @@ public class Enemy : MonoBehaviour
 
         Debug.Log(name + " is moving to inversigation site.");
         Move(LastPlayerPos);
+        soundManager.PlaySoundCue(MonsterSoundManager.SoundCues.Investigating);
     }
 
     /// <summary>

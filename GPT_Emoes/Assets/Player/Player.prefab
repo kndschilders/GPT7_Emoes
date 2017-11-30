@@ -28,6 +28,7 @@ GameObject:
   - component: {fileID: 114410396444032574}
   - component: {fileID: 114411343361852748}
   - component: {fileID: 114855938913304712}
+  - component: {fileID: 114513696401557748}
   m_Layer: 9
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -53,6 +54,8 @@ GameObject:
   - component: {fileID: 114129956323028590}
   - component: {fileID: 114574495151625076}
   - component: {fileID: 114321302859202494}
+  - component: {fileID: 114800359670382264}
+  - component: {fileID: 114359635582579988}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -110,7 +113,7 @@ Transform:
   m_GameObject: {fileID: 1481014933187912}
   m_LocalRotation: {x: -0, y: 0.14082879, z: -0, w: 0.990034}
   m_LocalPosition: {x: -48.94, y: 52.63, z: -136.69}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4257523295693726}
   - {fileID: 4181889507743788}
@@ -268,14 +271,46 @@ MonoBehaviour:
   CrawlCamY: -0.6
   CrawlPlayerHeight: 1
   CamTransformSpeed: 0.1
-  State: 2
+  PlayerStateEnum: {fileID: 11400000, guid: 04726e7e972678d448028314808d9ed3, type: 2}
+  IsHiding:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: a780e97e0a0d6e744ba9c29ee4b9281d, type: 2}
+--- !u!114 &114359635582579988
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1481014933187912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e839e4c12473014b9b3d3faccc0f61d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 62e57b08c360dac4fb36af3ce599621a, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: GoToGameOver
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &114410396444032574
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1160417578049782}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b200ceda39a40af43bbb16a879f0791f, type: 3}
   m_Name: 
@@ -303,6 +338,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 01e40ffccb1fb8c40a84f47378b0c1a0, type: 2}
+--- !u!114 &114513696401557748
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1160417578049782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 134de05342f45e44598aa9b8b8dfc527, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stressLevel: {fileID: 11400000, guid: 27bbe881bfd2d1c45bc7f32d912e10a7, type: 2}
 --- !u!114 &114539084214140442
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -314,6 +361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b704f41983e3984ebc6b48eaa050ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stressLevel: {fileID: 11400000, guid: 27bbe881bfd2d1c45bc7f32d912e10a7, type: 2}
   movement:
     maxForwardSpeed: 5
     maxSidewaysSpeed: 5
@@ -321,7 +369,6 @@ MonoBehaviour:
     maxForwardSpeedMultiplier: 2
     maxForwardCrawlSpeedMultiplier: 0.2
     maxForwardCrouchSpeedMultiplier: 0.5
-    PlayerMovementState: 1
     slopeSpeedMultiplier:
       serializedVersion: 2
       m_Curve:
@@ -364,6 +411,10 @@ MonoBehaviour:
     slidingSpeed: 10
     sidewaysControl: 1
     speedControl: 0.4
+  PlayerStateRef:
+    UseConstant: 0
+    ConstantValue: 2
+    Variable: {fileID: 11400000, guid: 04726e7e972678d448028314808d9ed3, type: 2}
 --- !u!114 &114544769857445496
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -409,6 +460,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e63c68b48f120e45afc1ce767661e78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsHiding: {fileID: 11400000, guid: a780e97e0a0d6e744ba9c29ee4b9281d, type: 2}
 --- !u!114 &114757245690307660
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -420,10 +472,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee4ab9821096c489f84e50f35b7b9644, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startDistance: 1000
+  _startDistance: 500
   _useRadialDistance: 0
   _fadeToSkybox: 0
   _shader: {fileID: 4800000, guid: 3514cc2676a6c4db294c28459f22c359, type: 3}
+--- !u!114 &114800359670382264
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1481014933187912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30168f16d17d07542a22d0e6952ec370, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stresslevel: {fileID: 11400000, guid: 27bbe881bfd2d1c45bc7f32d912e10a7, type: 2}
+  arduino: {fileID: 0}
+  pin: 0
+  pinValue: 0
 --- !u!114 &114831039848043696
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -469,6 +536,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5d8f4040e81dc148bb595feef151096, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsHidingRef:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
 --- !u!124 &124693206745263546
 Behaviour:
   m_ObjectHideFlags: 1

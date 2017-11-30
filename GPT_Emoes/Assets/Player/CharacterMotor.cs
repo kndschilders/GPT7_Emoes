@@ -12,6 +12,7 @@ public class CharacterMotor : MonoBehaviour
 	// Does this script currently respond to input?
 	bool canControl = true;
 	bool useFixedUpdate = true;
+    public FloatVariable stressLevel;
 
 	// For the next variables, [System.NonSerialized] tells Unity to not serialize the variable or show it in the inspector view.
 	// Very handy for organization!
@@ -42,16 +43,6 @@ public class CharacterMotor : MonoBehaviour
 		// The crouch multiplier
 		[Range(0.1f, 1.0f)]
 		public float maxForwardCrouchSpeedMultiplier = 0.5f;
-
-
-		[HideInInspector]
-		public MovementState PlayerMovementState = MovementState.Crouching;
-		public enum MovementState {
-			Crawling,
-			Crouching,
-			Moving,
-			Spriting
-		}
 
 		// Curve for multiplying speed based on slope(negative = downwards)
 		public AnimationCurve slopeSpeedMultiplier = new AnimationCurve(new Keyframe(-90, 1), new Keyframe(0, 1), new Keyframe(90, 0));
@@ -210,6 +201,8 @@ public class CharacterMotor : MonoBehaviour
 
 	private CharacterController controller;
 
+	public PlayerStateReference PlayerStateRef;
+
 	void Awake()
 	{
 		controller = GetComponent<CharacterController>();
@@ -218,16 +211,13 @@ public class CharacterMotor : MonoBehaviour
 
 	private void UpdateFunction()
 	{
-		// Set sprinting enabled or disabled.
-		if (Input.GetKey (KeyCode.LeftControl))
-			movement.PlayerMovementState = CharacterMotorMovement.MovementState.Crouching;
-		else if (Input.GetKey (KeyCode.C))
-			movement.PlayerMovementState = CharacterMotorMovement.MovementState.Crawling;
-		else if (Input.GetKey (KeyCode.LeftShift))
-			movement.PlayerMovementState = CharacterMotorMovement.MovementState.Spriting;
-		else
-			movement.PlayerMovementState = CharacterMotorMovement.MovementState.Moving;
-		
+		/*if (Input.GetKeyDown (KeyCode.LeftShift)) {
+			PlayerStateRef.Variable.Value = PlayerState.Sprint;
+		}
+		if (Input.GetKeyUp (KeyCode.LeftShift)) {
+			PlayerStateRef.Variable.Value = PlayerState.Stand;
+		}*/
+
 		// We copy the actual velocity into a temporary variable that we can manipulate.
 		Vector3 velocity = movement.velocity;
 
@@ -672,19 +662,19 @@ public class CharacterMotor : MonoBehaviour
 			Vector3 temp = new Vector3(desiredMovementDirection.x, 0, desiredMovementDirection.z / zAxisEllipseMultiplier).normalized;
 
 			float forwardMovementSpeedMultiplier;
-			switch (movement.PlayerMovementState) {
-				case CharacterMotorMovement.MovementState.Crawling:
+			switch (PlayerStateRef.Value) {
+				case PlayerState.Crawl:
 					forwardMovementSpeedMultiplier = movement.maxForwardCrawlSpeedMultiplier;
 					break;
-				case CharacterMotorMovement.MovementState.Crouching:
+				case PlayerState.Crouch:
 					forwardMovementSpeedMultiplier = movement.maxForwardCrouchSpeedMultiplier;
 					break;
-				case CharacterMotorMovement.MovementState.Spriting:
+				case PlayerState.Sprint:
 					forwardMovementSpeedMultiplier = movement.maxForwardSpeedMultiplier;
 					break;
-				case CharacterMotorMovement.MovementState.Moving:
+				case PlayerState.Stand:
 				default:
-					forwardMovementSpeedMultiplier = 1.0f;
+					forwardMovementSpeedMultiplier = Mathf.Clamp(stressLevel.Value * 1.8f, 1, 1.8f);
 					break;
 			}
 

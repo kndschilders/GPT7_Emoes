@@ -18,24 +18,12 @@ public class PlayerCrouchScript : MonoBehaviour {
 	private float normalPlayerHeight;
 	private float normalPlayerCenterY;
 
-	public enum CrouchState {
-		Crawl,
-		Crouch,
-		None
-	}
-
-	public CrouchState State;
-
-	public bool IsCrouching {
-		get { return State == CrouchState.Crouch; }
-	}
-
-	public bool IsCrawling {
-		get { return State == CrouchState.Crawl; }
-	}
+	public PlayerStateVariable PlayerStateEnum;
 
 	private Camera cam;
 	private CharacterController cc;
+	private bool keepCheckingForCrouchState = false;
+	public BoolReference IsHiding;
 
 	void Start () {
 		cam = GetComponentInChildren<Camera> ();
@@ -48,26 +36,56 @@ public class PlayerCrouchScript : MonoBehaviour {
 		normalPlayerCenterY = cc.center.y;
 	}
 
-	void Update() {
-		if (Input.GetKeyDown (KeyCode.LeftControl))
-			OnCrouchChange (CrouchState.Crouch);
-		if (Input.GetKeyUp (KeyCode.LeftControl))
-			OnCrouchChange (CrouchState.None);
+	private bool canStand() {
+		Ray ray = new Ray (transform.position, Vector3.up);
 
-		if (Input.GetKeyDown (KeyCode.C))
-			OnCrouchChange (CrouchState.Crawl);
-		if (Input.GetKeyUp (KeyCode.C))
-			OnCrouchChange (CrouchState.None);
+		Debug.DrawRay (transform.position, Vector3.up, Color.red);
+
+		RaycastHit hit;
+		if (Physics.Raycast (ray, out hit, 1.5f)) {
+			if (hit.collider != null) return false;
+		}
+
+		return true;
+	}
+
+	private void standUp() {
+		if (canStand ()) {
+			keepCheckingForCrouchState = false;
+			OnCrouchChange (PlayerState.Stand);
+		} else {
+			keepCheckingForCrouchState = true;
+		}
+	}
+
+	void Update() {
+		if (IsHiding.Value) {
+			if (PlayerStateEnum.Value != PlayerState.Stand)
+				OnCrouchChange (PlayerState.Stand);
+		} else {
+			if (keepCheckingForCrouchState)
+				standUp ();
+
+			if (Input.GetKeyDown (KeyCode.LeftControl))
+				OnCrouchChange (PlayerState.Crouch);
+			if (Input.GetKeyUp (KeyCode.LeftControl))
+				standUp ();
+
+			if (Input.GetKeyDown (KeyCode.C))
+				OnCrouchChange (PlayerState.Crawl);
+			if (Input.GetKeyUp (KeyCode.C))
+				standUp ();
+		}
 
 		float camDestY;
-		switch (State) {
-			case CrouchState.Crawl:
+		switch (PlayerStateEnum.Value) {
+			case PlayerState.Crawl:
 				camDestY = CrawlCamY;
 				break;
-			case CrouchState.Crouch:
+			case PlayerState.Crouch:
 				camDestY = CrouchCamY;
 				break;
-			case CrouchState.None:
+			case PlayerState.Stand:
 			default:
 				camDestY = normalCamY;
 				break;
@@ -86,21 +104,21 @@ public class PlayerCrouchScript : MonoBehaviour {
 		}
 	}
 
-	public void OnCrouchChange(CrouchState state) {
-		if (state != CrouchState.None && State != CrouchState.None) return;
-		State = state;
+	public void OnCrouchChange(PlayerState state) {
+		if (state != PlayerState.Stand && PlayerStateEnum.Value!= PlayerState.Stand) return;
+		PlayerStateEnum.Value = state;
 
 		float ccHeight, ccCenterY;
-		switch (State) {
-		case CrouchState.Crawl:
+		switch (PlayerStateEnum.Value) {
+		case PlayerState.Crawl:
 			ccHeight = CrawlPlayerHeight;
 			ccCenterY = normalPlayerCenterY - ((normalPlayerHeight - CrawlPlayerHeight) / 2);
 			break;
-		case CrouchState.Crouch:
+		case PlayerState.Crouch:
 			ccHeight = CrouchPlayerHeight;
 			ccCenterY = normalPlayerCenterY - ((normalPlayerHeight - CrouchPlayerHeight) / 2);
 			break;
-		case CrouchState.None:
+		case PlayerState.Stand:
 		default:
 			ccHeight = normalPlayerHeight;
 			ccCenterY = normalPlayerCenterY;
