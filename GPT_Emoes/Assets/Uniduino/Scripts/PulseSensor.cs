@@ -56,9 +56,7 @@ public class PulseSensor : MonoBehaviour {
         arduino.pinMode(13, PinMode.OUTPUT);
         arduino.reportAnalog(0, 1);
     }
-
-
-
+    
     // Update is called once per frame
     void Update()
     {
