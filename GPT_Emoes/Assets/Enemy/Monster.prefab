@@ -2219,9 +2219,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 50
+  MaxDistance: 30
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -2229,28 +2229,40 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 2
-      time: 0.027224734
-      value: 0.9961395
-      inSlope: -5.0019917
-      outSlope: -5.0019917
+      time: 0.033333335
+      value: 1
+      inSlope: -30.011993
+      outSlope: -30.011993
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.27173463
-      value: 0.44596863
-      inSlope: -1.2504979
-      outSlope: -1.2504979
+      time: 0.06666667
+      value: 0.5
+      inSlope: -7.5029984
+      outSlope: -7.5029984
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.5382202
-      value: 0.076309204
-      inSlope: -0.31262448
-      outSlope: -0.31262448
+      time: 0.13333334
+      value: 0.25
+      inSlope: -1.8757496
+      outSlope: -1.8757496
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.26666668
+      value: 0.11151123
+      inSlope: -0.4689374
+      outSlope: -0.4689374
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.537911
+      value: 0.042266846
+      inSlope: -0.11723435
+      outSlope: -0.11723435
       tangentMode: 0
     - serializedVersion: 2
       time: 1
       value: 0
-      inSlope: -0.20007975
-      outSlope: -0.20007975
+      inSlope: -0.033346657
+      outSlope: -0.033346657
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -2909,7 +2921,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1875381236685058}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 4
+  m_Radius: 3
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50

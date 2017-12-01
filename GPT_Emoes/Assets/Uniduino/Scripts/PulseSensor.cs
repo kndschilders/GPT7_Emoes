@@ -14,6 +14,7 @@ public class PulseSensor : MonoBehaviour {
     public int pin = 0;
     public int pinValue;
     int calibration = 0;
+    float lastStress;
 
     private bool coroutine = false;
 
@@ -40,6 +41,8 @@ public class PulseSensor : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        lastStress = stresslevel.Value;
+        BPMlevel.SetValue(0);
         arduino = Arduino.global;
         arduino.Setup(ConfigurePins);
         emptyGO = new GameObject();
@@ -53,9 +56,7 @@ public class PulseSensor : MonoBehaviour {
         arduino.pinMode(13, PinMode.OUTPUT);
         arduino.reportAnalog(0, 1);
     }
-
-
-
+    
     // Update is called once per frame
     void Update()
     {
@@ -139,7 +140,7 @@ public class PulseSensor : MonoBehaviour {
         {
             IBI = LastIBI - 150;
         }
-        else if((sampleCounter - lastBeatTime) - IBI > 300)
+        else if ((sampleCounter - lastBeatTime) - IBI > 300)
         {
             IBI = LastIBI + 150;
         }
@@ -163,12 +164,29 @@ public class PulseSensor : MonoBehaviour {
 
             return;
         }
-        if(calibration < 10 && !secondBeat && !firstBeat)
+        if (calibration < 5 && !secondBeat && !firstBeat)
         {
             rate[calibration] = IBI;
             calibration++;
         }
-        else if (calibration == 10)
+        else if (calibration == 5)
+        {
+            var sum = 0;
+            for (int i = 0; i <= 5; i++)
+            {
+                sum += rate[i];
+            }
+            var avg = sum / 5;
+            for (int i = 5; i <= 9; i++)
+            {
+                rate[i] = avg;
+            }
+            BPM = 60000 / CalculateRunningTotal(rate);
+            Mathf.Clamp(BPM, 35, 150);
+            calibration++;
+            QS = true;
+        }
+        else if (calibration > 5)
         {
             int runningTotal = CalculateRunningTotal(rate);
 
@@ -184,7 +202,6 @@ public class PulseSensor : MonoBehaviour {
             }
             QS = true;
         }
-        
     }
 
     int CalculateRunningTotal(int[] rateArray)
@@ -209,10 +226,10 @@ public class PulseSensor : MonoBehaviour {
 
     void CalculateStressLevel()
     {
-        float lastStress = stresslevel.Value;
         Transform t = emptyGO.transform;
-        t.position.Set(lastStress, 0, 0);
-        t.DOMoveX((float)BPM / (150f - 35f), 1).OnUpdate(() => {
+        t.position = new Vector3(lastStress, 0, 0);
+        print(lastStress + " to " + ((float)BPM / (150f - 35f)));
+        t.DOMoveX(((float)BPM / (150f - 35f)), 1).OnUpdate(() => {
             stresslevel.SetValue(t.position.x);
             lastStress = stresslevel.Value;
         });

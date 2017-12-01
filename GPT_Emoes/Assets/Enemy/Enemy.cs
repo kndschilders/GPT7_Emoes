@@ -78,6 +78,10 @@ public class Enemy : MonoBehaviour
     #region Initializaiton
     private void Awake()
     {
+        Init();
+    }
+    private void Init()
+    {
         mover = GetComponent<Mover>();
         playerObject = GameObject.FindGameObjectWithTag("Player");
         RoamDestinations = GameObject.FindGameObjectsWithTag("Destination");
@@ -88,7 +92,9 @@ public class Enemy : MonoBehaviour
         else
             Debug.Log("No player found! Please mark something with the Player tag.");
     }
-
+    /// <summary>
+    /// 
+    /// </summary>
     private void Start()
     {
         // Init behavior
@@ -99,6 +105,11 @@ public class Enemy : MonoBehaviour
 
         // Start the alertness reduction cycle
         InvokeRepeating("AlertnessReductionTick", 1, 1);
+    }
+
+    private void OnDisable()
+    {
+        CancelInvoke();
     }
 
     #endregion
