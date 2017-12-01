@@ -12,6 +12,6 @@ public class BPMText : MonoBehaviour {
 	
 	void Update () {
         BPMUIText.text = ((int)BPMLevel.Value).ToString();
-        AC.SetFloat("multiplier", BPMLevel.Value);
+        AC.SetFloat("multiplier", BPMLevel.Value/120f);
 	}
 }
