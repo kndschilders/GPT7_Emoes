@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Name: Player_StressLevel
   m_EditorClassIdentifier: 
   DeveloperDescription: Keep between 0 and 1
-  Value: 0.31304348
+  Value: 1

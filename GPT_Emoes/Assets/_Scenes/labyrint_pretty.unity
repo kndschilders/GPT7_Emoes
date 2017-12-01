@@ -46406,7 +46406,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 35.050003, y: 30}
+  m_SizeDelta: {x: 71.89, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1537180539
 MonoBehaviour:
@@ -50607,6 +50607,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &1729267099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1729267082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da1a0048959cdab45952a5998c2354d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stress: {fileID: 11400000, guid: 27bbe881bfd2d1c45bc7f32d912e10a7, type: 2}
+  bpmLevel: {fileID: 11400000, guid: 8a995ff8790f804419536ce492ad15b3, type: 2}
 --- !u!1001 &1731577568
 Prefab:
   m_ObjectHideFlags: 0
