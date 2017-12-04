@@ -8,12 +8,12 @@ public class StressController : MonoBehaviour {
     private float stressValue;
 
 	void Update () {
-		if(Input.GetKey(KeyCode.KeypadMinus))
+		if(Input.GetKey(KeyCode.KeypadMinus) || Input.GetMouseButton(1))
         {
             stressValue = (stress.Value - .3f * Time.deltaTime);
         }
 
-        if(Input.GetKey(KeyCode.KeypadPlus))
+        if(Input.GetKey(KeyCode.KeypadPlus) || Input.GetMouseButton(0))
         {
             stressValue = (stress.Value + .3f * Time.deltaTime);
         }
